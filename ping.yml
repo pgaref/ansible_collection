@@ -1,0 +1,4 @@
+- hosts: local
+  user: admin
+  tasks:
+    - debug: msg=ping
