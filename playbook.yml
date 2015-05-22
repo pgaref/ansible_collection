@@ -1,0 +1,5 @@
+- hosts: local
+  user: admin
+  sudo: yes
+  tasks:
+    - debug: msg="Let's create your playbook!"
