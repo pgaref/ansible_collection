@@ -1,4 +1,6 @@
 - hosts: local
+  vars_files:
+    - secret
   user: admin
   tasks:
     - debug: msg=ping
