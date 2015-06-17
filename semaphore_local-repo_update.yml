@@ -3,7 +3,7 @@
   connection: local
   tasks:
    - name: Updating local Semaphore Repository
-     git: repo=git@bitbucket.org:***REMOVED***/***REMOVED***-build-tools.git
+     git: repo=git@bitbucket.org:pangaref/ansible_playbooks.git
            dest=/home/admin/ansible_playbooks
            force=yes
            clone=yes
