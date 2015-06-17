@@ -6,6 +6,12 @@
   vars_files:
     - secret
   tasks:
+  - name: Updating local Semaphore Repository
+    local_action: git repo=git@bitbucket.org:***REMOVED***/***REMOVED***-build-tools.git
+          dest=/opt/***REMOVED***-build-tools
+          force=yes
+          clone=yes
+          accept_hostkey=yes
   - file: path='/home/admin/ansible_playbooks' state=directory mode=0755
   - file: path='/home/admin/ansible_playbooks/keys' state=directory mode=0755
   - name: Copying Public key
