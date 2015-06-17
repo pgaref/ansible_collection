@@ -12,6 +12,7 @@
           force=yes
           clone=yes
           accept_hostkey=yes
+          key_file=/home/admin/ansible_playbooks/keys/id_rsa
   - file: path='/home/admin/ansible_playbooks' state=directory mode=0755
   - file: path='/home/admin/ansible_playbooks/keys' state=directory mode=0755
   - name: Copying Public key
