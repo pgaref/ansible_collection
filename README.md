@@ -34,6 +34,7 @@ In the second senario make sure you run semaphore local repo update task to make
 
 ### Ansinble Command line usage ###
 
-inside the cloned directory (ansible_playbooks):
+Inside the cloned directory (ansible_playbooks):
+
 * ansible-playbook ping.yml --vault-password-file=vault.txt
 * ansible-playbook build_tools-git-clone-update.yml  --vault-password-file=vault.txt
