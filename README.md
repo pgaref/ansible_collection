@@ -32,6 +32,11 @@ You can use ansible:
 In the second senario make sure you run semaphore local repo update task to make sure semaphore's repo (running at docker) is synchronised with the latest changes.
  
 
+## Moving a Step further ##
+
+TODO: Explain vault encryption and pub/private keys.
+
+
 ### Ansinble Command line usage ###
 
 Inside the cloned directory (ansible_playbooks):
