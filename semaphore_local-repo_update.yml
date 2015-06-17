@@ -8,4 +8,4 @@
            force=yes
            clone=yes
            accept_hostkey=yes
-           key_file=/home/admin/ansible_playbooks/keys/id_rsa
+           key_file=/root/.ssh/id_rsa
