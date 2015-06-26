@@ -43,3 +43,12 @@ Inside the cloned directory (ansible_playbooks):
 
 * ansible-playbook ping.yml --vault-password-file=vault.txt
 * ansible-playbook build_tools-git-clone-update.yml  --vault-password-file=vault.txt
+
+
+### Ansible Ad-hoc Commands ###
+
+If you want install a package or run an one time commeand there is not neeed to create a new playbook.
+You can use ansible ad-hock commands
+
+* ansible local -m apt -a "name=libssl-dev state=present" -u admin -k --sudo : Ensure a package is installed, but don’t update it
+* ansible local -m shell -a 'sudo apt-get update; sudo apt-get install libffi-dev; echo 'DONE'' -k -u admin --sudo
