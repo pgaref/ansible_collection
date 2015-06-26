@@ -51,4 +51,5 @@ If you want install a package or run an one time commeand there is not neeed to 
 You can use ansible ad-hock commands
 
 * ansible local -m apt -a "name=libssl-dev state=present" -u admin -k --sudo : Ensure a package is installed, but don’t update it
-* ansible local -m shell -a 'sudo apt-get update; sudo apt-get install libffi-dev; echo 'DONE'' -k -u admin --sudo
+* ansible databases -s -m apt -a "name=libffi-dev state=present" -k -u admin
+* ansible databases -m shell -a 'sudo apt-get update; sudo pip install -U pip setuptools wheel virtualenv; echo 'DONE'' -k -u admin --sudo
