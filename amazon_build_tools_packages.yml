@@ -7,10 +7,13 @@
     - secret
   tasks:
     # Add the admin user with a bash shell, appending the group 'admin' and 'sudo' to the user's groups
-  - user: name=admin shell=/bin/bash groups=admin,sudo append=yes home=/home/admin state=present
+  - user: name=admin shell=/bin/bash groups=admin,sudo append=yes home=/home/admin createhome=yes password={{secret}} state=present
   
   - name: Installing  Git...
     apt: name=git update_cache=yes state=present
+    
+  - name: Installing cmake...
+    apt: name=cmake state=present
     
   - name: Installing python-pip ....
     apt: name=python-pip state=present
@@ -34,4 +37,6 @@
 
   - name: Installing libxml2-dev...
     apt: name=libxml2-dev state=present
+    
+    
    
