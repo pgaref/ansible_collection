@@ -28,5 +28,10 @@
 
   - name: Installing libevent-dev...
     apt: name=libevent-dev state=present
-   
+
+  - name: Installing  libxslt1-dev...
+    apt: name=libxslt1-dev state=present
+
+  - name: Installing libxml2-dev...
+    apt: name=libxml2-dev state=present
    
