@@ -64,4 +64,6 @@
   - name: Installing build-essential...
     apt: name=build-essential state=present
     
+  - name: Installing extras..
+    shell: sudo pip install pyopenssl ndg-httpsclient pyasn1;
    
