@@ -64,6 +64,11 @@
   - name: Installing build-essential...
     apt: name=build-essential state=present
     
-  - name: Installing extras..
-    shell: sudo pip install pyopenssl ndg-httpsclient pyasn1;
+  - name: Installing PySide..
+    shell: sudo easy_install -U PySide;
+    
+    # Mount S3 bucker
+    
+    # Run Raw data parser 
+    
    
