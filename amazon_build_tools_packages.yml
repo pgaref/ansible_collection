@@ -47,5 +47,7 @@
   - name: Installing libssl-dev...
     apt: name=libssl-dev state=present
     
+  - name: Installing qt4-qmake...
+    apt: name=qt4-qmake state=present
     
    
