@@ -23,10 +23,10 @@
   - name: Installing libmysqlclient-dev...
     apt: name=libmysqlclient-dev state=present
     
-  -name: Installing python-dev..
-   apt: name=python-dev state=present
+  - name: Installing python-dev..
+    apt: name=python-dev state=present
 
-  -name: Installing libevent-dev...
-   apt: name=libevent-dev state=present
+  - name: Installing libevent-dev...
+    apt: name=libevent-dev state=present
    
    
