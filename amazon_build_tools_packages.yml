@@ -47,10 +47,21 @@
   - name: Installing libssl-dev...
     apt: name=libssl-dev state=present
     
+    # PySide Extra dependency
   - name: Installing qt4-qmake...
     apt: name=qt4-qmake state=present
    
+    # PySide Extra dependency
   - name: Installing libqt4-dev...
     apt: name=libqt4-dev state=present
+    
+  - name: Installing libphonon-dev...
+    apt: name=libphonon-dev state=present
+    
+  - name: Installing python2.7-dev...
+    apt: name=python2.7-dev state=present
+    
+  - name: Installing build-essential...
+    apt: name=build-essential state=present
     
    
