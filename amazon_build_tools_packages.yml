@@ -41,5 +41,11 @@
   - name: Installing libxml2-dev...
     apt: name=libxml2-dev state=present
     
+  - name: Installing python-pyside..
+    apt: name=python-pyside state=present
+ 
+  - name: Installing libssl-dev...
+    apt: name=libssl-dev state=present
+    
     
    
