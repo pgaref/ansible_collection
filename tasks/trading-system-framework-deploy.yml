@@ -1,0 +1,71 @@
+---
+- hosts: amazon
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - secret
+    - ../vars/main.yml
+    - ../defaults/main.yml
+  tasks:
+  - file: path='/home/admin/ansible_playbooks' state=directory mode=0755
+  - file: path='/home/admin/ansible_playbooks/keys' state=directory mode=0755
+  - name: Copying Public key
+    copy: src='/Users/pgaref/Documents/workspace/ansible_playbooks/keys-store/id_rsa.pub' dest='/home/admin/ansible_playbooks/keys/id_rsa.pub'
+          force=yes
+          backup=yes
+          owner=admin
+          group=admin
+          mode=0644
+  - name: Copyign Private key
+    copy: src='/Users/pgaref/Documents/workspace/ansible_playbooks/keys-store/id_rsa' dest='/home/admin/ansible_playbooks/keys/id_rsa'
+          force=yes
+          backup=yes
+          owner=admin
+          group=admin
+          mode=0600
+  - name: Installing Git 
+    # Update repositories cache and install "Git" package
+    apt: name=git update_cache=yes state=present
+  - name: Setup the Git repo
+    git: repo=git@bitbucket.org:***REMOVED***/trading-system-framework.git
+          dest=/opt/trading-system-framework
+          force=yes
+          clone=yes
+          accept_hostkey=yes
+          key_file=/home/admin/ansible_playbooks/keys/id_rsa
+    # Install Go lang dependencies and fix path
+  - name: Download the Go tarball
+    get_url: url={{ go_download_location }}
+           dest=/usr/local/src/{{ go_tarball }}
+           sha256sum={{ go_tarball_checksum }}
+
+  - name: Register the current Go version (if any)
+    command: /usr/local/go/bin/go version
+    ignore_errors: yes
+    register: go_version
+    changed_when: false
+
+  - name: Extract the Go tarball if Go is not yet installed or if it is not the desired version
+    command: tar -C /usr/local -xf /usr/local/src/{{ go_tarball }}
+    when: go_version|failed or go_version.stdout != go_version_target
+
+  - name: Add the Go bin directory to the PATH environment variable for all users
+    copy: src=../files/go-bin.sh
+          dest=/etc/profile.d
+
+  - name: Set GOPATH for all users
+    copy: src=../files/go-path.sh
+          dest=/etc/profile.d    
+    
+    # Create executables
+  #- file: src=/opt/***REMOVED***-build-tools/***REMOVED***/launcher.sh dest=/usr/bin/***REMOVED***-launcher.sh
+  #        owner=root
+  #        group=root
+  #        state=link
+  #- file: src=/opt/***REMOVED***-build-tools/***REMOVED***/builder.sh dest=/usr/bin/***REMOVED***-builder.sh
+  #        owner=root
+  #        group=root
+  #        state=link
+          
+
