@@ -91,7 +91,7 @@
           
     #Setting ENV variable
   - name: Adding the path in the bashrc files
-    lineinfile: dest=/home/admin/.bashrc line='API='odds_parser:564$TERRG$ERF$'' insertafter='EOF' regexp='API='odds_parser:564\$TERRG\$ERF\$'' state=present
+    lineinfile: dest=/home/admin/.bashrc line='export API='odds_parser:564$TERRG$ERF$'' insertafter='EOF' regexp='export API='odds_parser:564\$TERRG\$ERF\$'' state=present
           
 
 
