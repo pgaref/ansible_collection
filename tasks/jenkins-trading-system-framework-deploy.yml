@@ -75,9 +75,11 @@
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution/execution 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
+          mode="u=rwX,g=rX,o=rX"
   - name: Moving ***REMOVED***-monitoring under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/monitoring/monitoring 
-          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring        
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring
+          mode="u=rwX,g=rX,o=rX"
     
     # Creating symbolic links for easy access
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution
