@@ -55,11 +55,11 @@
   - name: Set API env variable for all users
     copy: src=../files/go-api.sh
           dest=/etc/profile.d
-          
+    
     #Executable PATHS
-    - action: shell date '+%F.%H:%M:%S' 
-      register: mydate 
-    - action: file dest=/opt/go/bin/{{ mydate.stdout }}  state=directory 
+  - action: shell date '+%F.%H:%M:%S' 
+    register: mydate 
+  - action: file dest=/opt/go/bin/{{ mydate.stdout }}  state=directory 
                               
     # Create go-executables -- GO env dependencies were needed
   - name: Executing go-get under trading-system-framework
