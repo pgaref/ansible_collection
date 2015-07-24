@@ -75,7 +75,7 @@
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution/execution 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
-          mode="u=rwX,g=rwX,o=rwX"
+          mode="u=rwx,g=rwx,o=rwx"
   - name: Moving ***REMOVED***-monitoring under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/monitoring/monitoring 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring
