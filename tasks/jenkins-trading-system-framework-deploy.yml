@@ -13,6 +13,7 @@
     file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
     file: path=/opt/go/pkg state=directory owner=admin group=admin mode=0775
     
+    #Project PATHS
   - name: Setup the trading-system-framework Git repo
     git: repo=git@bitbucket.org:***REMOVED***/trading-system-framework.git
           dest=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework
@@ -54,7 +55,12 @@
   - name: Set API env variable for all users
     copy: src=../files/go-api.sh
           dest=/etc/profile.d
-                    
+          
+    #Executable PATHS
+    - action: shell date '+%F.%H:%M:%S' 
+      register: mydate 
+    - action: file dest=/opt/go/bin/{{ mydate.stdout }}  state=directory 
+                              
     # Create go-executables -- GO env dependencies were needed
   - name: Executing go-get under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/ && go get executable=/bin/bash
