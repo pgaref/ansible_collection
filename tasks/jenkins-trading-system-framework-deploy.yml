@@ -71,6 +71,14 @@
   - name: Building go-monitoring under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/monitoring && go build executable=/bin/bash
     
+    #Creating build Executables - Moving to corrent folder
+  - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution/execution 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
+  - name: Moving ***REMOVED***-monitoring under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/monitoring/monitoring 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring        
+    
     # Creating symbolic links for easy access
   - file: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution/execution dest=/usr/bin/***REMOVED***-execution
           owner=root
