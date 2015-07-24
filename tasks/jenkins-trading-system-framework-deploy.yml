@@ -7,7 +7,7 @@
     - ../vars/secret
     - ../vars/main.yml
     - ../defaults/main.yml
-  tasks:
+    
   - name: Setup up /opt/go Path
     file: path=/opt/go/src/bitbucket.org/***REMOVED*** state=directory owner=admin group=admin mode=0775
     file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
@@ -93,7 +93,7 @@
           
     #Setting ENV variable
   - name: Adding the path in the bashrc files
-    lineinfile: dest=/home/admin/.bashrc line='export API=\"odds_parser:564$TERRG$ERF$\"' insertafter='EOF' regexp='API='odds_parser:564\$TERRG\$ERF\$'' state=present
+    lineinfile: dest=/home/admin/.bashrc line='export API=\'odds_parser:564$TERRG$ERF$\'' insertafter='EOF' regexp='export(.*)API(.*)' state=present
           
 
 
