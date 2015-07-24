@@ -72,6 +72,11 @@
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution && go build executable=/bin/bash
   - name: Building go-monitoring under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/monitoring && go build executable=/bin/bash
+  - name: Executing go-get under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api/ && go get executable=/bin/bash
+  - name: Building go-data-api under data-api
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go build executable=/bin/bash
+    
     
     #Creating build Executables - Moving to corrent folder
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
@@ -82,6 +87,10 @@
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/monitoring/monitoring 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring
           mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/data_api/data_api
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
+          mode="u=rwx,g=rwx,o=rwx"
     
     # Creating symbolic links for easy access
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution
@@ -89,6 +98,10 @@
           group=root
           state=link
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api
           owner=root
           group=root
           state=link
