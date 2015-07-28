@@ -97,17 +97,23 @@
   - stat: path=/usr/bin/***REMOVED***-execution
     register: st
   - name: Creating ***REMOVED***-execution rollback symbolic link  
-    template: src=/usr/bin/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution-old
+    copy: src=/usr/bin/***REMOVED***-execution
+    dest=/usr/bin/***REMOVED***-execution-old
+    mode="u=rwx,g=rwx,o=rwx"
     when: st.stat.exists
   - stat: path=/usr/bin/***REMOVED***-monitoring
     register: st
   - name: Creating ***REMOVED***-execution rollback symbolic link  
-    template: src=/usr/bin/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring-old
+    copy: src=/usr/bin/***REMOVED***-monitoring
+    dest=/usr/bin/***REMOVED***-monitoring-old
+    mode="u=rwx,g=rwx,o=rwx"
     when: st.stat.exists
   - stat: path=/usr/bin/***REMOVED***-data_api
     register: st
   - name: Creating ***REMOVED***-execution rollback symbolic link  
-    template: src=/usr/bin/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api-old
+    copy: src=/usr/bin/***REMOVED***-data_api
+    dest=/usr/bin/***REMOVED***-data_api-old
+    mode="u=rwx,g=rwx,o=rwx"
     when: st.stat.exists
     
     # Creating symbolic links for easy access
