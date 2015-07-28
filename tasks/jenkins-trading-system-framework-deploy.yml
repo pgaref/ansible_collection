@@ -10,8 +10,7 @@
 
   tasks:
      
-  - name: Setup up /opt/go Path
-    file: path=/opt/go/src/bitbucket.org/***REMOVED*** state=directory owner=admin group=admin mode=0775
+  - file: path=/opt/go/src/bitbucket.org/***REMOVED*** state=directory owner=admin group=admin mode=0775
   - file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
   - file: path=/opt/go/pkg state=directory owner=admin group=admin mode=0775
     
