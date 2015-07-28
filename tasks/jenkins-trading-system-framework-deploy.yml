@@ -94,10 +94,10 @@
           
           
     # Creating a rollback symbolic link
-  - name: Check that /usr/bin/***REMOVED***-execution exists  
+  - name: Check that /usr/bin/***REMOVED***-execution exists
     stat: path=/usr/bin/***REMOVED***-execution
     register: ste
-  - name: Creating ***REMOVED***-execution rollback symbolic link  
+  - name: Creating ***REMOVED***-execution rollback symbolic link
     copy: src=/usr/bin/***REMOVED***-execution
           dest=/usr/bin/***REMOVED***-execution-old
           mode="u=rwx,g=rwx,o=rwx"
