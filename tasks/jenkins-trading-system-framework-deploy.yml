@@ -100,12 +100,14 @@
   - name: Creating ***REMOVED***-execution rollback symbolic link  
     template: src=/usr/bin/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution-old
     when: ste.stat.exists
+    
   - name: Check that /usr/bin/***REMOVED***-monitoring exists  
     stat: path=/usr/bin/***REMOVED***-monitoring
     register: stm
   - name: Creating ***REMOVED***-execution rollback symbolic link  
     template: src=/usr/bin/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring-old
     when: stm.stat.exists
+    
   - name: Check that /usr/bin/***REMOVED***-data_api exists  
     stat: path=/usr/bin/***REMOVED***-data_api
     register: std
@@ -115,15 +117,15 @@
     
     # Creating symbolic links for easy access
   - name: Creating new symbolic links
-  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution
+    file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution
           owner=root
           group=root
           state=link
-  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring
+    file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring
           owner=root
           group=root
           state=link
-  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api
+    file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api
           owner=root
           group=root
           state=link
