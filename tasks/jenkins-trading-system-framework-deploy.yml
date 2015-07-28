@@ -94,19 +94,19 @@
           
           
     # Creating a rollback symbolic link
-  - name: Creating ***REMOVED***-execution rollback symbolic link  
-    stat: path=/usr/bin/***REMOVED***-execution
+  - stat: path=/usr/bin/***REMOVED***-execution
     register: st
+  - name: Creating ***REMOVED***-execution rollback symbolic link  
     template: src=/usr/bin/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution-old
     when: st.stat.exists
-  - name: Creating ***REMOVED***-execution rollback symbolic link  
-    stat: path=/usr/bin/***REMOVED***-monitoring
+  - stat: path=/usr/bin/***REMOVED***-monitoring
     register: st
+  - name: Creating ***REMOVED***-execution rollback symbolic link  
     template: src=/usr/bin/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring-old
     when: st.stat.exists
-  - name: Creating ***REMOVED***-execution rollback symbolic link  
-    stat: path=/usr/bin/***REMOVED***-data_api
+  - stat: path=/usr/bin/***REMOVED***-data_api
     register: st
+  - name: Creating ***REMOVED***-execution rollback symbolic link  
     template: src=/usr/bin/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api-old
     when: st.stat.exists
     
