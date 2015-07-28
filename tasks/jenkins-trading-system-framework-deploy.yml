@@ -78,7 +78,7 @@
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go build executable=/bin/bash
     
     
-    #Creating build Executables - Moving to corrent folder
+    # Creating build Executables - Moving to corrent folder
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution/execution 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
@@ -91,8 +91,25 @@
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/data_api/data_api
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
           mode="u=rwx,g=rwx,o=rwx"
+          
+          
+    # Creating a rollback symbolic link
+  - name: Creating rollback symbolic links  
+  - stat: path=/usr/bin/***REMOVED***-execution
+    register: st
+  - template: src=/usr/bin/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution-old
+    when: st.stat.exists
+  - stat: path=/usr/bin/***REMOVED***-monitoring
+    register: st
+  - template: src=/usr/bin/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring-old
+    when: st.stat.exists
+  - stat: path=/usr/bin/***REMOVED***-data_api
+    register: st
+  - template: src=/usr/bin/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api-old
+    when: st.stat.exists
     
     # Creating symbolic links for easy access
+  - name: Creating new symbolic links
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution
           owner=root
           group=root
