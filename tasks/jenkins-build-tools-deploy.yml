@@ -25,8 +25,8 @@
           group=admin
           mode=0600
   - name: Installing Git 
-    # Update repositories cache and install "Git" package
-    apt: name=git update_cache=yes state=present
+    # Update repositories NOT cache and install "Git" package
+    apt: name=git update_cache=no state=present
   - name: Setup the Git repo
     git: repo=git@bitbucket.org:***REMOVED***/***REMOVED***-build-tools.git
           dest=/opt/***REMOVED***-build-tools
