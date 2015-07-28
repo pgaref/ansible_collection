@@ -1,0 +1,40 @@
+---
+- hosts: go-deploy
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../vars/secret
+    - ../vars/main.yml
+    - ../defaults/main.yml
+
+  tasks:
+     
+      # Golang-Trading - Rolling back to previous working version
+  - name: Check that /usr/bin/***REMOVED***-execution-old exists
+    stat: path=/usr/bin/***REMOVED***-execution-old
+    register: ste
+  - name: Rolling back ***REMOVED***-execution
+    command: mv /usr/bin/***REMOVED***-execution-old /usr/bin/***REMOVED***-execution
+    when: ste.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-monitoring-old exists  
+    stat: path=/usr/bin/***REMOVED***-monitoring-old
+    register: stm
+  - name: Rolling back ***REMOVED***-monitoring  
+    command: mv /usr/bin/***REMOVED***-monitoring-old /usr/bin/***REMOVED***-monitoring
+    when: stm.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-data_api-old exists  
+    stat: path=/usr/bin/***REMOVED***-data_api-old
+    register: std
+  - name: Rolling back ***REMOVED***-data_api  
+    command: mv /usr/bin/***REMOVED***-data_api-old /usr/bin/***REMOVED***-data_api
+    when: std.stat.exists
+          
+    #Setting ENV variable
+  - name: Adding the path in the Admin user bashrc files
+    lineinfile: dest=/home/admin/.bashrc line="export API=\'odds_parser:564$TERRG$ERF$\'" insertafter="EOF" regexp="export(.*)API=(.*)\'" state=present
+          
+
+
