@@ -22,14 +22,14 @@
           force=yes
           clone=yes
           accept_hostkey=yes
-          key_file=/home/admin/ansible_playbooks/keys/id_rsa
+          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
   - name: Setup the data-api dependency Git repo
     git: repo=git@bitbucket.org:***REMOVED***/data_api.git
           dest=/opt/go/src/bitbucket.org/***REMOVED***/data_api
           force=yes
           clone=yes
           accept_hostkey=yes
-          key_file=/home/admin/ansible_playbooks/keys/id_rsa
+          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
           
     # Install Go lang dependencies and fix path
   - name: Download the Go tarball
