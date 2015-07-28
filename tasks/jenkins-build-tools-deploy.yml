@@ -30,6 +30,7 @@
           dest=/opt/***REMOVED***-build-tools
           force=yes
           clone=yes
+          update=yes
           accept_hostkey=yes
           key_file=/home/admin/ansible_playbooks/keys/id_rsa
   - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/launcher.sh dest=/usr/bin/***REMOVED***-launcher.sh
