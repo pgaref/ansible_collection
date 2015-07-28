@@ -110,7 +110,7 @@
     copy: src=/usr/bin/***REMOVED***-monitoring
           dest=/usr/bin/***REMOVED***-monitoring-old
           mode="u=rwx,g=rwx,o=rwx"
-    copy: stm.stat.exists
+    when: stm.stat.exists
     
   - name: Check that /usr/bin/***REMOVED***-data_api exists  
     stat: path=/usr/bin/***REMOVED***-data_api
