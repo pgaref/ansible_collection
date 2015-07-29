@@ -15,8 +15,8 @@
     file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
     file: path=/opt/go/pkg state=directory owner=admin group=admin mode=0775
     
-  - name: ensure github is a known host
-    action: sshknownhosts host=bitbucket.org state=present 
+#  - name: ensure github is a known host
+#    action: sshknownhosts host=bitbucket.org state=present 
 
     #Project PATHS
   - name: Setup the trading-system-framework Git repo
