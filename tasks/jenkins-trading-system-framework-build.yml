@@ -17,14 +17,14 @@
     
     #Project PATHS
   - name: Setup the trading-system-framework Git repo
-    git: repo=https://pangaref@bitbucket.org/***REMOVED***/trading-system-framework.git
+    git: repo=git@bitbucket.org:***REMOVED***/trading-system-framework.git
           dest=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework
           force=yes
           clone=yes
           accept_hostkey=yes
           key_file=/home/admin/.ansible_playbooks/keys/id_rsa
   - name: Setup the data-api dependency Git repo
-    git: repo=https://pangaref@bitbucket.org/***REMOVED***/data_api.git
+    git: repo=git@bitbucket.org:***REMOVED***/data_api.git
           dest=/opt/go/src/bitbucket.org/***REMOVED***/data_api
           force=yes
           clone=yes
