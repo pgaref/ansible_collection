@@ -66,17 +66,33 @@
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Parser/ && go install executable=/bin/bash
   - name: Building go-execution under go-enetsports Parser
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Parser/ && go build executable=/bin/bash
+- name: Executing go-get under go-enetsports Server
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go get executable$
+  - name: Executing go-install under go-enetsports Server
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go install execut$
+  - name: Building go-execution under go-enetsports Server
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go build executab$
+
     
     # Creating build Executables - Moving to correct folder
-#  - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
-#    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution/execution 
-#          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
-#          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-goenet-parser under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/go-enetsports/Parser/Parser
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-goenet-parser
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-goenet-server under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/go-enetsports/Server/Server
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-goenet-server
+          mode="u=rwx,g=rwx,o=rwx"
+
     
     # Creating symbolic links for easy access
-#  - name: Creating new symbolic links
-#    command: ls -al
-#  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution-pre
-#          owner=root
-#          group=root
-#          state=link
+  - name: Creating new symbolic links
+    command: ls -al
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-goenet-parser dest=/usr/bin/***REMOVED***-goenet-parser-pre
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-goenet-server dest=/usr/bin/***REMOVED***-goenet-server-pre
+          owner=root
+          group=root
+          state=link
