@@ -1,0 +1,27 @@
+---
+- hosts: go-deploy
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../vars/secret
+    - ../vars/main.yml
+    - ../defaults/main.yml
+
+  tasks:
+     
+      # Golang-Trading - Rolling back to previous working version
+  - name: Check that /usr/bin/***REMOVED***-goenet-server-old exists
+    stat: path=/usr/bin/***REMOVED***-goenet-server-old
+    register: ste
+  - name: Rolling back ***REMOVED***-goenet-server
+    command: mv /usr/bin/***REMOVED***-goenet-server-old /usr/bin/***REMOVED***-goenet-server
+    when: ste.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-goenet-parser-old exists  
+    stat: path=/usr/bin/***REMOVED***-goenet-parser-old
+    register: stm
+  - name: Rolling back ***REMOVED***-goenet-parser 
+    command: mv /usr/bin/***REMOVED***-goenet-parser-old /usr/bin/***REMOVED***-goenet-parser
+    when: stm.stat.exists
+
