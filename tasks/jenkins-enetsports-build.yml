@@ -67,11 +67,11 @@
   - name: Building go-execution under go-enetsports Parser
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Parser/ && go build executable=/bin/bash
   - name: Executing go-get under go-enetsports Server
-    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go get executable$
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go get executable=/bin/bash
   - name: Executing go-install under go-enetsports Server
-    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go install execut$
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go install executable=/bin/bash
   - name: Building go-execution under go-enetsports Server
-    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go build executab$
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/ && go build executable=/bin/bash
 
     
     # Creating build Executables - Moving to correct folder
