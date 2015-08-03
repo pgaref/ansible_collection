@@ -76,11 +76,11 @@
     
     # Creating build Executables - Moving to correct folder
   - name: Moving ***REMOVED***-goenet-parser under /opt/go/bin/{{ mydate.stdout }}
-    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/go-enetsports/Parser/Parser
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Parser/Parser
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-goenet-parser
           mode="u=rwx,g=rwx,o=rwx"
   - name: Moving ***REMOVED***-goenet-server under /opt/go/bin/{{ mydate.stdout }}
-    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/go-enetsports/Server/Server
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/go-enetsports/Server/Server
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-goenet-server
           mode="u=rwx,g=rwx,o=rwx"
 
