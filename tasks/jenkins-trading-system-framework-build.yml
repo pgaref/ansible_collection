@@ -72,26 +72,25 @@
   - name: Executing go-install under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/ && go install executable=/bin/bash
   - name: Building go-execution under trading-system-framework
-    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution && go build executable=/bin/bash
-    notify:
-    - test execution
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution && go build executable=/bin/bash
+
   - name: Building go-monitoring under trading-system-framework
-    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/monitoring && go build executable=/bin/bash
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/monitoring && go build executable=/bin/bash
   - name: Executing go-get under data_api
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api/ && go get executable=/bin/bash
   - name: Building go-data-api under data_api
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go build executable=/bin/bash
     notify:
-    - test monitoring
+    - test all
     
     
     # Creating build Executables - Moving to correct folder
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
-    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution/execution 
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution/execution 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
           mode="u=rwx,g=rwx,o=rwx"
   - name: Moving ***REMOVED***-monitoring under /opt/go/bin/{{ mydate.stdout }}
-    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/monitoring/monitoring 
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/monitoring/monitoring 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring
           mode="u=rwx,g=rwx,o=rwx"
   - name: Moving ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
@@ -116,7 +115,5 @@
           state=link
 
   handlers:
-   - name: test execution
-     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution && go test executable=/bin/bash
-   - name: test monitoring
-     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go test executable=/bin/bash
+   - name: test all
+     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework && go test executable=/bin/bash
