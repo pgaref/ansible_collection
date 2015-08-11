@@ -85,13 +85,6 @@
     - test monitoring
     
     
-    handlers:
-    - name: test execution
-      shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution && go test executable=/bin/bash
-    - name: test monitoring
-      shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go test executable=/bin/bash
-
-    
     # Creating build Executables - Moving to correct folder
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution/execution 
@@ -121,3 +114,9 @@
           owner=root
           group=root
           state=link
+
+  handlers:
+   - name: test execution
+     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/examples/execution && go test executable=/bin/bash
+   - name: test monitoring
+     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go test executable=/bin/bash
