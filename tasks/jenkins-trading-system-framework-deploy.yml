@@ -73,6 +73,10 @@
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/ && go get executable=/bin/bash
   - name: Executing go-install under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/ && go install executable=/bin/bash
+
+  - name: Building go-simulator under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/simulator && go build executable=/bin/bash  
+  
   - name: Building go-execution under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution && go build executable=/bin/bash
   - name: Building go-monitoring under trading-system-framework
@@ -85,6 +89,10 @@
     - test all    
     
     # Creating build Executables - Moving to corrent folder
+  - name: Moving ***REMOVED***-simulator under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/simulator/simulator 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator
+          mode="u=rwx,g=rwx,o=rwx"    
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution/execution 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
@@ -100,6 +108,13 @@
           
           
     # Creating a rollback symbolic link
+  - name: Check that /usr/bin/***REMOVED***-simulator exists
+    stat: path=/usr/bin/***REMOVED***-simulator
+    register: ste
+  - name: Creating ***REMOVED***-simulator rollback symbolic link
+    command: mv /usr/bin/***REMOVED***-simulator /usr/bin/***REMOVED***-simulator-old
+    when: ste.stat.exists
+        
   - name: Check that /usr/bin/***REMOVED***-execution exists
     stat: path=/usr/bin/***REMOVED***-execution
     register: ste
@@ -124,6 +139,10 @@
     # Creating symbolic links for easy access
   - name: Creating new symbolic links
     command: ls -al
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator dest=/usr/bin/***REMOVED***-simulator
+          owner=root
+          group=root
+          state=link    
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution
           owner=root
           group=root

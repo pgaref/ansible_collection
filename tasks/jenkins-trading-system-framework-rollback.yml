@@ -11,6 +11,13 @@
   tasks:
      
       # Golang-Trading - Rolling back to previous working version
+  - name: Check that /usr/bin/***REMOVED***-simulator-old exists
+    stat: path=/usr/bin/***REMOVED***-simulator-old
+    register: ste
+  - name: Rolling back ***REMOVED***-simulator
+    command: mv /usr/bin/***REMOVED***-simulator-old /usr/bin/***REMOVED***-simulator
+    when: ste.stat.exists
+          
   - name: Check that /usr/bin/***REMOVED***-execution-old exists
     stat: path=/usr/bin/***REMOVED***-execution-old
     register: ste
