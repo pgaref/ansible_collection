@@ -120,7 +120,7 @@
     # Apt package installation of required software.
     ##
   - name: General | Install required packages.
-      apt: pkg={{ item }} state=installed
+      apt: pkg={{item}} state=installed
       with_items:
         - npm
     ## 
