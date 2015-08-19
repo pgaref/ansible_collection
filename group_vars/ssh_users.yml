@@ -12,7 +12,7 @@ sshusers:
     authorized: true
   - name: polyvios
     authorized: true
-  - name: polyvios2
+  - name: polyvios-home
     authorized: true    
   - name: olly
     authorized: true
