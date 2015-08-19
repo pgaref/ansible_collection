@@ -5,8 +5,7 @@
   sudo_user: root
   vars_files:
     - ../vars/secret
-    - ../vars/main.yml
-    - ../defaults/main.yml
+    - ../group_vars/ssh_users
 
   tasks:
   - name: create key directory
