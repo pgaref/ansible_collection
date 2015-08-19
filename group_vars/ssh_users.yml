@@ -2,4 +2,5 @@
 
 #users who get SSH access to these machines
 sshusers:
-  - mary
+  - name: mary
+    authorized: true
