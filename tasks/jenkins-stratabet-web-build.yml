@@ -85,11 +85,11 @@
   - name: Executing go-get under data_api
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api/ && go get executable=/bin/bash
   - name: Building go-data-api under data_api
-    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go build executable=/bin/bash
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api/ && go build executable=/bin/bash
   - name: Executing go-get under advantedj_api
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/ && go get executable=/bin/bash
   - name: Building go-data-api under data_api
-    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api && go build executable=/bin/bash    
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/ && go build executable=/bin/bash    
     notify:
     - test all
     
@@ -120,8 +120,10 @@
     # Apt package installation of required software.
     ##
   - name: General | Install required packages.
-    apt: name=npmstate=present
-    
+    apt: pkg={{item}} state=installed
+    with_items:
+     - npm
+     - git
     
     ## 
     # Stratabet Web dependencies
