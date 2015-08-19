@@ -116,7 +116,7 @@
     apt: pkg={{item}} state=installed
     with_items:
      - npm
-     - git
+     - curl
     
     ## 
     # Stratabet Web dependencies
