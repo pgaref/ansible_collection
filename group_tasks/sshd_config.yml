@@ -22,8 +22,8 @@
     authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/keys/'+item.name) }}"
     with_items: sshusers
     notify:
-    - restart sshd
+    - restart ssh
 
   handlers:
-    - name: restart sshd
-      service: name=sshd state=restarted
+    - name: restart ssh
+      service: name=ssh state=restarted
