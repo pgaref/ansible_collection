@@ -42,7 +42,7 @@
          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
   - name: Setup the Stratabet Git repo
     git: repo=git@bitbucket.org:***REMOVED***/stratabet.git
-         dest=/opt/go/src/bitbucket.org/***REMOVED***/stratabet
+         dest=/opt/stratabet
          force=yes
          clone=yes
          accept_hostkey=yes
