@@ -1,5 +1,5 @@
 ---
-- hosts: databases
+- hosts: localhost
   user: admin
   sudo: yes
   sudo_user: root
