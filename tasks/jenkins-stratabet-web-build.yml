@@ -121,8 +121,9 @@
     ##
   - name: General | Install required packages.
       action: apt pkg={{ item }} state=installed
+      tags: common
       with_items:
-        - npm   
+        - "npm"   
     ## 
     # Stratabet Web dependencies
     ##
