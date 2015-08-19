@@ -120,9 +120,9 @@
     # Apt package installation of required software.
     ##
   - name: General | Install required packages.
-      apt: pkg={{item}} state=installed
-      with_items:
-        - npm
+     with_items:
+       - npm
+     action: apt pkg={{ item }} state=installed
     ## 
     # Stratabet Web dependencies
     ##
