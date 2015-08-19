@@ -19,13 +19,6 @@
 #    action: sshknownhosts host=bitbucket.org state=present 
 
     #Project PATHS
-  - name: Setup the trading-system-framework Git repo
-    git: repo=git@bitbucket.org:***REMOVED***/trading-system-framework.git
-          dest=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework
-          force=yes
-          clone=yes
-          accept_hostkey=yes
-          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
   - name: Setup the data-api dependency Git repo
     git: repo=git@bitbucket.org:***REMOVED***/data_api.git
           dest=/opt/go/src/bitbucket.org/***REMOVED***/data_api
@@ -128,6 +121,8 @@
     ## 
     # Stratabet Web dependencies
     ##
+  - name: Executing npm install Bower and Gulp under stratabet
+    shell: cd /opt/stratabet/ && npm cache clean -f && npm install -g n && sudo n stable executable=/bin/bash    
   - name: Executing npm install Bower and Gulp under stratabet
     shell: cd /opt/stratabet/ && npm install -g bower && npm install -g gulp executable=/bin/bash
   - name: Executing npm Install under stratabet
