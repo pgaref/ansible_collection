@@ -94,13 +94,13 @@
     - test all
     
     # Creating build Executables - Moving to correct folder
-  - name: Moving ***REMOVED***-advantedj_api under /opt/go/bin/{{ mydate.stdout }}
-    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/advantedj_api
-          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-advantedj_api
-          mode="u=rwx,g=rwx,o=rwx"
-  - name: Moving ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
+  - name: Moving ***REMOVED***-data_api under /opt/go/bin/"{{ mydate.stdout }}"
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/data_api/data_api
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-advantedj_api under /opt/go/bin/"{{ mydate.stdout }}"
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/advantedj_api
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-advantedj_api
           mode="u=rwx,g=rwx,o=rwx"
     
     # Creating symbolic links for easy access
