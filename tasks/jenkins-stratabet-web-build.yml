@@ -1,5 +1,5 @@
 ---
-- hosts: go-deploy
+- hosts: stratabet-web
   user: admin
   sudo: yes
   sudo_user: root
