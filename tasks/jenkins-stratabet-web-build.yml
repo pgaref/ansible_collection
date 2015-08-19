@@ -19,6 +19,13 @@
 #    action: sshknownhosts host=bitbucket.org state=present 
 
     #Project PATHS
+  - name: Setup the trading-system-framework Git repo
+    git: repo=git@bitbucket.org:***REMOVED***/trading-system-framework.git
+          dest=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework
+          force=yes
+          clone=yes
+          accept_hostkey=yes
+          key_file=/home/admin/.ansible_playbooks/keys/id_rsa    
   - name: Setup the data-api dependency Git repo
     git: repo=git@bitbucket.org:***REMOVED***/data_api.git
           dest=/opt/go/src/bitbucket.org/***REMOVED***/data_api
@@ -129,8 +136,15 @@
     shell: cd /opt/stratabet/ && npm install && bower install --allow-root executable=/bin/bash
   - name: Build Stratabet in Prod mode
     shell: cd /opt/stratabet/ && gulp build:prod executable=/bin/bash  
-
+    
+  # Manage the state of program group to be in 'started' state.
+#  - name: Restart Data API supervisor Job
+#    supervisorctl: name='my_apps:' state=started
+#  - name: Restart Advantadj API supervisor Job
+#    supervisorctl: name='my_apps:' state=started
   handlers:
    - name: test all
      shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go test . ./... executable=/bin/bash
      shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api && go test . ./... executable=/bin/bash
+     
+     
