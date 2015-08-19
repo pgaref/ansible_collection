@@ -12,6 +12,8 @@ sshusers:
     authorized: true
   - name: polyvios
     authorized: true
+  - name: polyvios2
+    authorized: true    
   - name: olly
     authorized: true
   - name: robert
