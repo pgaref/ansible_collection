@@ -4,3 +4,21 @@
 sshusers:
   - name: mary
     authorized: true
+  - name: rahul
+    authorized: true
+  - name: jovan
+    authorized: true
+  - name: paolo
+    authorized: true
+  - name: polyvios
+    authorized: true
+  - name: olly
+    authorized: true
+  - name: robert
+    authorized: true
+  - name: kostasc
+    authorized: true 
+  - name: carmen
+    authorized: true 
+  - name: panagiotis
+    authorized: true 
