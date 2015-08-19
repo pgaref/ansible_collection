@@ -1,0 +1,33 @@
+---
+- hosts: databases
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../vars/secret
+    - ../vars/main.yml
+    - ../defaults/main.yml
+
+  tasks:
+  - name: create key directory
+    action: file path=/opt/ssh/authorized_keys state=directory
+      owner=0 group=0 mode=0755
+
+  - name: upload user key
+    action: copy src=/opt/ansible_playbooks/keys/{{ item }}
+      dest=/opt/ssh/authorized_keys
+      owner=0 group=0 mode=644
+    with_items: sshusers
+
+  - name: sshd configuration file update
+    template: src=/opt/ansible_playbooks/group_tasks/sshd_config.j2
+      dest=/etc/ssh/sshd_config
+      backup=yes
+      owner=0 group=0 mode=0644
+      validate='/usr/sbin/sshd -T -f %s'
+    notify:
+    - restart sshd
+
+  handlers:
+    - name: restart sshd
+      service: name=sshd state=restarted
