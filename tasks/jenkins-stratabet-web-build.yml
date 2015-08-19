@@ -137,11 +137,12 @@
   - name: Build Stratabet in Prod mode
     shell: cd /opt/stratabet/ && gulp build:prod executable=/bin/bash  
     
-  # Manage the state of program group to be in 'started' state.
+  # Manage Supervisor stratabet task - restart them in a specific order
   - name: Restart Data API supervisor Job
     supervisorctl: name="stratabet:data_api" state=restarted
   - name: Restart Advantadj API supervisor Job
     supervisorctl: name="stratabet:advantedj_api" state=restarted
+    
   handlers:
    - name: test all
      shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go test . ./... executable=/bin/bash
