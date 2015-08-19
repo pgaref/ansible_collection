@@ -19,8 +19,7 @@
     with_items: sshusers
 
   - name: Add ssh user keys
-    path_var: /opt/ansible_playbooks/keys/{{ item.name }}
-    authorized_key: user=admin key="{{ lookup('file', 'path_var') }}"
+    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/keys/'+{{ item.name }}) }}"
     with_items: sshusers
     notify:
     - restart sshd
