@@ -19,7 +19,7 @@
     with_items: sshusers
 
   - name: Add ssh user keys
-    authorized_key: user=admin key="/opt/ansible_playbooks/keys/{{ item }}"
+    authorized_key: user=admin key=/opt/ansible_playbooks/keys/"{{ item }}"
     with_items: ssh_users
     notify:
     - restart sshd
