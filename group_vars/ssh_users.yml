@@ -23,4 +23,8 @@ sshusers:
   - name: carmen
     authorized: true 
   - name: panagiotis
+    authorized: true
+  - name: daniel
+    authorized: true 
+  - name: dmytro
     authorized: true 
