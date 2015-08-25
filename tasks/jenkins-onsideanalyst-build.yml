@@ -26,6 +26,9 @@
           clone=yes
           accept_hostkey=yes
           key_file=/home/admin/.ansible_playbooks/keys/id_rsa    
+          
+  - name: Setup up bower_components Path
+    file: path=/opt/onsideanalyst/bower_components state=directory owner=admin group=admin mode=0775
          
     # Install Go lang dependencies and fix path
   - name: Download the Go tarball
@@ -71,10 +74,18 @@
     ## 
     # Onside Analyst Web dependencies
     ##
-  - name: Executing bower and npm under onsideanalyst
-    shell: cd /opt/onsideanalyst && npm install && bower install --allow-root 
+   - name: Executing bower under onsideanalyst
+    shell: cd /opt/onsideanalyst && npm install
+    become: yes
+    become_user: root
+  - name: Executing bower under onsideanalyst
+    shell: cd /opt/onsideanalyst && bower install --allow-root 
+    become: yes
+    become_user: admin
   - name: Executing grunt build under onsideanalyst
-    shell: cd /opt/onsideanalyst && grunt build:dev
+    shell: cd /opt/onsideanalyst && grunt
+    become: yes
+    become_user: root
 
   # Manage Supervisor onsideanalyst task - restart
   - name: Restart Data API supervisor Job
