@@ -83,7 +83,7 @@
     become: yes
     become_user: admin
   - name: Executing grunt build under onsideanalyst
-    shell: cd /opt/onsideanalyst && grunt
+    shell: cd /opt/onsideanalyst && grunt release
     become: yes
     become_user: root
 
