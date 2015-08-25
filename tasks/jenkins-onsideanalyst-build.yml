@@ -71,6 +71,8 @@
     ## 
     # Onside Analyst Web dependencies
     ##
+  - name: Executing bower and npm under onsideanalyst
+    shell: cd /opt/onsideanalyst && npm install && bower install 
   - name: Executing grunt build under onsideanalyst
     shell: cd /opt/onsideanalyst && grunt build:dev
 
