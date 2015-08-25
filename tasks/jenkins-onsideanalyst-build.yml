@@ -74,7 +74,7 @@
     ## 
     # Onside Analyst Web dependencies
     ##
-   - name: Executing bower under onsideanalyst
+  - name: Executing bower under onsideanalyst
     shell: cd /opt/onsideanalyst && npm install
     become: yes
     become_user: root
