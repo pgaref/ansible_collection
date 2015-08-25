@@ -20,7 +20,7 @@
 
     #Project PATHS
   - name: Setup the onsideanalyst Git repo
-    git: repo=git clone git@bitbucket.org:***REMOVED***/onsideanalyst.git
+    git: repo=git@bitbucket.org:***REMOVED***/onsideanalyst.git
           dest=/opt/onsideanalyst
           force=yes
           clone=yes
