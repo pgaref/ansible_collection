@@ -3,8 +3,6 @@
   user: admin
   sudo: yes
   sudo_user: root
-  vars:
-    node_env: "{{ DEPLOY_ENV|default(staging) }}"
   vars_files:
     - ../vars/secret
     - ../vars/main.yml
@@ -136,13 +134,13 @@
     shell: cd /opt/stratabet/ && npm install -g bower && npm install -g gulp executable=/bin/bash
   - name: Executing npm Install under stratabet
     shell: cd /opt/stratabet/ && npm install && bower install --allow-root executable=/bin/bash
-  - command: echo "Going to build statabet in '{{ node_env.stdout }}' mode!!!"
+  - command: echo "Going to build statabet in '{{ deployment_env }}' mode!!!"
   - name: Build Stratabet in Prod mode
     shell: cd /opt/stratabet/ && gulp build:prod && sed -i.orig 's|http://localhost:5555|https://api.stratabet.com|' public/index.html && sed -i.orig2 's|--applicationMode--|production|' public/index.html && sed -i.orig3 's|pk_test_RG0dNH0QAzOsFnTuRVvVhB9Y|pk_live_n9ZbWR9pWtRfh6b1Xn9iRAk0|' public/index.html executable=/bin/bash  
-    when: node_env == "production"
+    when: deployment_env == "production"
   - name: Build Stratabet in Staging mode
     shell: cd /opt/stratabet/ && gulp build:prod
-    when: node_env == "staging"
+    when: deployment_env == "staging"
     
   # Manage Supervisor stratabet task - restart them in a specific order
   - name: Restart Data API supervisor Job
