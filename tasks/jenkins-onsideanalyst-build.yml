@@ -3,6 +3,8 @@
   user: admin
   sudo: yes
   sudo_user: root
+  vars:
+    branch_env: "{{ BRANCH|default(master) }}"  
   vars_files:
     - ../vars/secret
     - ../vars/main.yml
@@ -18,12 +20,13 @@
 #  - name: ensure github is a known host
 #    action: sshknownhosts host=bitbucket.org state=present 
 
-    #Project PATHS
+    #onsideanalyst PATHS - Clone specific repo branch
   - name: Setup the onsideanalyst Git repo
     git: repo=git@bitbucket.org:***REMOVED***/onsideanalyst.git
           dest=/opt/onsideanalyst
           force=yes
           clone=yes
+          version={{branch_env}}
           accept_hostkey=yes
           key_file=/home/admin/.ansible_playbooks/keys/id_rsa    
           
