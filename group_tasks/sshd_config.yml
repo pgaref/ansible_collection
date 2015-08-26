@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: dbservers
   user: admin
   sudo: yes
   sudo_user: root
