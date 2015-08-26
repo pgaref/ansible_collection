@@ -138,10 +138,10 @@
     shell: cd /opt/stratabet/ && npm install && bower install --allow-root executable=/bin/bash
   - name: Build Stratabet in Prod mode
     shell: cd /opt/stratabet/ && gulp build:prod && sed -i.orig 's|http://localhost:5555|https://api.stratabet.com|' public/index.html && sed -i.orig2 's|--applicationMode--|production|' public/index.html && sed -i.orig3 's|pk_test_RG0dNH0QAzOsFnTuRVvVhB9Y|pk_live_n9ZbWR9pWtRfh6b1Xn9iRAk0|' public/index.html executable=/bin/bash  
-    when: '{{DEPLOY_ENV}}'== 'production'
+    when: "{{DEPLOY_ENV}}" == "production"
   - name: Build Stratabet in Staging mode
     shell: cd /opt/stratabet/ && gulp build:prod
-    when: '{{DEPLOY_ENV}}' == 'staging'
+    when: "{{DEPLOY_ENV}}" == "staging"
     
   # Manage Supervisor stratabet task - restart them in a specific order
   - name: Restart Data API supervisor Job
