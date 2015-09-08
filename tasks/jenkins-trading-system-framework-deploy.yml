@@ -160,7 +160,7 @@
           owner=root
           group=root
           state=link
-  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations dest=/usr/bin/***REMOVED***-allocations-pre
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations dest=/usr/bin/***REMOVED***-allocations
           owner=root
           group=root
           state=link               
