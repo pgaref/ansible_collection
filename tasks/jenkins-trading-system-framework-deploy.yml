@@ -81,6 +81,12 @@
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution && go build executable=/bin/bash
   - name: Building go-monitoring under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/monitoring && go build executable=/bin/bash
+    
+  - name: Executing go-get under allocations
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations && go get executable=/bin/bash
+  - name: Building allocations under runners
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations && go build executable=/bin/bash    
+    
   - name: Executing go-get under data_api
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api/ && go get executable=/bin/bash
   - name: Building go-data-api under data_api
@@ -92,7 +98,11 @@
   - name: Moving ***REMOVED***-simulator under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/simulator/simulator 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator
-          mode="u=rwx,g=rwx,o=rwx"    
+          mode="u=rwx,g=rwx,o=rwx" 
+  - name: Moving ***REMOVED***-allocations under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations/allocations 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations
+          mode="u=rwx,g=rwx,o=rwx"             
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution/execution 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
@@ -114,6 +124,13 @@
   - name: Creating ***REMOVED***-simulator rollback symbolic link
     command: mv /usr/bin/***REMOVED***-simulator /usr/bin/***REMOVED***-simulator-old
     when: ste.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-allocations exists
+    stat: path=/usr/bin/***REMOVED***-allocations
+    register: ste
+  - name: Creating ***REMOVED***-allocations rollback symbolic link
+    command: mv /usr/bin/***REMOVED***-allocations /usr/bin/***REMOVED***-allocations-old
+    when: ste.stat.exists    
         
   - name: Check that /usr/bin/***REMOVED***-execution exists
     stat: path=/usr/bin/***REMOVED***-execution
@@ -142,7 +159,11 @@
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator dest=/usr/bin/***REMOVED***-simulator
           owner=root
           group=root
-          state=link    
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations dest=/usr/bin/***REMOVED***-allocations-pre
+          owner=root
+          group=root
+          state=link               
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution
           owner=root
           group=root

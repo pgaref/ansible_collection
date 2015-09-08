@@ -72,6 +72,11 @@
   - name: Building go-data-api under reports
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/reports && go build executable=/bin/bash
     
+  - name: Executing go-get under allocations
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations && go get executable=/bin/bash
+  - name: Building allocations under runners
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations && go build executable=/bin/bash    
+    
   - name: Executing go-get under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/ && go get executable=/bin/bash
   - name: Executing go-install under trading-system-framework
@@ -97,6 +102,10 @@
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/simulator/simulator 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator
           mode="u=rwx,g=rwx,o=rwx"    
+  - name: Moving ***REMOVED***-allocations under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations/allocations 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations
+          mode="u=rwx,g=rwx,o=rwx"            
   - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution/execution 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
@@ -116,7 +125,11 @@
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator dest=/usr/bin/***REMOVED***-simulator-pre
           owner=root
           group=root
-          state=link    
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations dest=/usr/bin/***REMOVED***-allocations-pre
+          owner=root
+          group=root
+          state=link               
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution-pre
           owner=root
           group=root
