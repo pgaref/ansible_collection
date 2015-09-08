@@ -32,6 +32,13 @@
     command: mv /usr/bin/***REMOVED***-monitoring-old /usr/bin/***REMOVED***-monitoring
     when: stm.stat.exists
     
+  - name: Check that /usr/bin/***REMOVED***-allocations-old exists  
+    stat: path=/usr/bin/***REMOVED***-allocations-old
+    register: std
+  - name: Rolling back ***REMOVED***-allocations  
+    command: mv /usr/bin/***REMOVED***-allocations-old /usr/bin/***REMOVED***-allocations
+    when: std.stat.exists    
+    
   - name: Check that /usr/bin/***REMOVED***-data_api-old exists  
     stat: path=/usr/bin/***REMOVED***-data_api-old
     register: std
