@@ -43,3 +43,7 @@
           owner=root
           group=root
           state=link
+  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/releaser.sh dest=/usr/bin/***REMOVED***-releaser.sh
+          owner=root
+          group=root
+          state=link
