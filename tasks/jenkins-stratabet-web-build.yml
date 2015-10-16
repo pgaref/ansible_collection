@@ -5,6 +5,7 @@
   sudo_user: root
   vars:
     node_env: "{{ DEPLOY_ENV|default(staging) }}"
+    branch_env: "{{ BRANCH|default(master) }}" 
   vars_files:
     - ../vars/secret
     - ../vars/main.yml
@@ -33,6 +34,7 @@
           dest=/opt/go/src/bitbucket.org/***REMOVED***/data_api
           force=yes
           clone=yes
+          version={{branch_env}}
           accept_hostkey=yes
           key_file=/home/admin/.ansible_playbooks/keys/id_rsa
   - name: Setup the advantedj-api Git repo
@@ -40,6 +42,7 @@
          dest=/opt/go/src/bitbucket.org/***REMOVED***/advantedj_api
          force=yes
          clone=yes
+         version={{branch_env}}
          accept_hostkey=yes
          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
   - name: Setup the Stratabet Git repo
@@ -47,6 +50,7 @@
          dest=/opt/stratabet
          force=yes
          clone=yes
+         version={{branch_env}}
          accept_hostkey=yes
          key_file=/home/admin/.ansible_playbooks/keys/id_rsa     
         
