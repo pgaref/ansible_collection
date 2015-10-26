@@ -81,6 +81,10 @@
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution && go build executable=/bin/bash
   - name: Building go-monitoring under trading-system-framework
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/monitoring && go build executable=/bin/bash
+  - name: Building go-keepAlive under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/keepAlive && go build executable=/bin/bash
+  - name: Building go-commission under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/commission && go build executable=/bin/bash
     
   - name: Executing go-get under allocations
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations && go get executable=/bin/bash
@@ -110,6 +114,14 @@
   - name: Moving ***REMOVED***-monitoring under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/monitoring/monitoring 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-keepAlive under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/keepAlive/keepAlive 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-keepAlive
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-commission under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/commission/commission 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission
           mode="u=rwx,g=rwx,o=rwx"
   - name: Moving ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/data_api/data_api
@@ -142,14 +154,27 @@
   - name: Check that /usr/bin/***REMOVED***-monitoring exists  
     stat: path=/usr/bin/***REMOVED***-monitoring
     register: stm
-  - name: Creating ***REMOVED***-execution rollback symbolic link  
+  - name: Creating ***REMOVED***-monitoring rollback symbolic link  
     command: mv /usr/bin/***REMOVED***-monitoring /usr/bin/***REMOVED***-monitoring-old
+    when: stm.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-keepAlive exists  
+    stat: path=/usr/bin/***REMOVED***-keepAlive
+    register: stm
+  - name: Creating ***REMOVED***-keepAlive rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-keepAlive /usr/bin/***REMOVED***-keepAlive-old
+    when: stm.stat.exists
+  - name: Check that /usr/bin/***REMOVED***-commission exists  
+    stat: path=/usr/bin/***REMOVED***-commission
+    register: stm
+  - name: Creating ***REMOVED***-commission rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-commission /usr/bin/***REMOVED***-commission-old
     when: stm.stat.exists
     
   - name: Check that /usr/bin/***REMOVED***-data_api exists  
     stat: path=/usr/bin/***REMOVED***-data_api
     register: std
-  - name: Creating ***REMOVED***-execution rollback symbolic link  
+  - name: Creating ***REMOVED***-data-api rollback symbolic link  
     command: mv /usr/bin/***REMOVED***-data_api /usr/bin/***REMOVED***-data_api-old
     when: std.stat.exists
     
@@ -169,6 +194,14 @@
           group=root
           state=link
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-keepAlive dest=/usr/bin/***REMOVED***-keepAlive
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission dest=/usr/bin/***REMOVED***-commission
           owner=root
           group=root
           state=link

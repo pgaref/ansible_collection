@@ -32,6 +32,20 @@
     command: mv /usr/bin/***REMOVED***-monitoring-old /usr/bin/***REMOVED***-monitoring
     when: stm.stat.exists
     
+  - name: Check that /usr/bin/***REMOVED***-keepAlive-old exists  
+    stat: path=/usr/bin/***REMOVED***-keepAlive-old
+    register: stm
+  - name: Rolling back ***REMOVED***-keepAlive  
+    command: mv /usr/bin/***REMOVED***-keepAlive-old /usr/bin/***REMOVED***-keepAlive
+    when: stm.stat.exists    
+
+  - name: Check that /usr/bin/***REMOVED***-commission-old exists  
+    stat: path=/usr/bin/***REMOVED***-commission-old
+    register: stm
+  - name: Rolling back ***REMOVED***-commission  
+    command: mv /usr/bin/***REMOVED***-commission-old /usr/bin/***REMOVED***-commission
+    when: stm.stat.exists    
+    
   - name: Check that /usr/bin/***REMOVED***-allocations-old exists  
     stat: path=/usr/bin/***REMOVED***-allocations-old
     register: std
