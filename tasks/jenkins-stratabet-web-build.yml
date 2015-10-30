@@ -4,8 +4,8 @@
   sudo: yes
   sudo_user: root
   vars:
-    node_env: "{{ DEPLOY_ENV|default(staging) }}"
-    branch_env: "{{ BRANCH|default(master) }}" 
+    node_env: "{{ DEPLOY_ENV|default('staging') }}"
+    branch_env: "{{ BRANCH|default('master') }}" 
   vars_files:
     - ../vars/secret
     - ../vars/main.yml
