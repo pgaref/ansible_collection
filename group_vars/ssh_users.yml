@@ -27,4 +27,6 @@ sshusers:
   - name: daniel
     authorized: true 
   - name: dmytro
+    authorized: true
+  - name: sami
     authorized: true 
