@@ -55,7 +55,7 @@
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission
           mode="u=rwx,g=rwx,o=rwx"
   - name: Moving ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
-    copy: src={{DATA_API}}/data_api
+    copy: src={{DATA_API_PATH}}/data_api
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
           mode="u=rwx,g=rwx,o=rwx"
     
