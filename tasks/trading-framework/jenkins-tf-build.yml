@@ -24,7 +24,7 @@
     register: mydate 
   - action: file dest=/opt/go/bin/{{ mydate.stdout }}  state=directory
     
-  - debug: msg="### DATA API: {{ DATA_API_PATH }} JenkinsHome => {{ JENKINS_HOME }}, JOB_NAME => {{ JOB_NAME }}, BUILD_ID => {{ BUILD_ID }}"
+  - debug: msg="### DATA API {{ DATA_API_PATH }} JenkinsHome => {{ JENKINS_HOME }}, JOB_NAME => {{ JOB_NAME }}, BUILD_ID => {{ BUILD_ID }}"
   - debug: msg="### TRADING FRAMEWORK {{ TRADING_FRAMEWORK_PATH }}"
   
     # Creating build Executables - Moving to correct folder
