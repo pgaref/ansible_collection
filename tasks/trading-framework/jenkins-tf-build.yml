@@ -1,6 +1,5 @@
 ---
-#- hosts: go-deploy
-- hosts: local
+- hosts: go-deploy
   user: admin
   sudo: yes
   sudo_user: root
