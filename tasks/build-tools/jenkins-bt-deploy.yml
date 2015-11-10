@@ -1,0 +1,53 @@
+---
+- hosts: dbservers
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../vars/secret
+    
+  tasks:
+  
+  - file: path='/home/admin/.ansible_playbooks' state=directory mode=0755
+  - file: path='/home/admin/.ansible_playbooks/keys' state=directory mode=0755
+  - name: Copying Public key
+    copy: src='/opt/ansible_playbooks/keys-store/id_rsa.pub' dest='/home/admin/.ansible_playbooks/keys/id_rsa.pub'
+          force=yes
+          backup=yes
+          owner=admin
+          group=admin
+          mode=0644
+  - name: Copyign Private key
+    copy: src=/opt/ansible_playbooks/keys-store/id_rsa dest=/home/admin/.ansible_playbooks/keys/id_rsa
+          force=yes
+          backup=yes
+          owner=admin
+          group=admin
+          mode=0600
+  - name: Installing Git 
+    # Update repositories NOT cache and install "Git" package
+    apt: name=git update_cache=no state=present
+  - name: Setup the Git repo
+    git: repo=git@bitbucket.org:***REMOVED***/***REMOVED***-build-tools.git
+          dest=/opt/***REMOVED***-build-tools
+          force=yes
+          clone=yes
+          update=yes
+          accept_hostkey=yes
+          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
+  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/launcher.sh dest=/usr/bin/***REMOVED***-launcher.sh
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/builder.sh dest=/usr/bin/***REMOVED***-builder.sh
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/releaser.sh dest=/usr/bin/***REMOVED***-releaser.sh
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/golang-builder.sh dest=/usr/bin/***REMOVED***-golang-builder.sh
+          owner=root
+          group=root
+          state=link
