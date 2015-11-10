@@ -4,11 +4,11 @@
   sudo: yes
   sudo_user: root
   vars: #Env variables lookup and use
-    - JENKINS_HOME: {{ lookup('env','JENKINS_HOME') }} 
-    - JOB_NAME: {{ lookup('env','JOB_NAME') }}
-    - BUILD_ID: {{ lookup('env','BUILD_ID') }}
-    - DATA_API_PATH: {{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/data_api
-    - TRADING_FRAMEWORK_PATH: {{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/trading-system-framework
+    - JENKINS_HOME: "{{ lookup('env','JENKINS_HOME') }} "
+    - JOB_NAME: "{{ lookup('env','JOB_NAME') }}"
+    - BUILD_ID: "{{ lookup('env','BUILD_ID') }}"
+    - DATA_API_PATH: "{{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/data_api"
+    - TRADING_FRAMEWORK_PATH: "{{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/trading-system-framework"
   vars_files:
     - ../../vars/secret
     - ../../vars/main.yml
