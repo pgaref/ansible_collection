@@ -5,7 +5,9 @@
   sudo: yes
   sudo_user: root
   vars: #Env variables lookup and use
-    - env_file: "{{ lookup('file', '/home/jenkins/golang-env.properties') }}"
+    - JENKINS_HOME: "{{ lookup('csvfile', 'JENKINS_HOME file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
+    - JOB_PATH: "{{ lookup('csvfile', 'JOB_PATH file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
+    - BUILD_ID: "{{ lookup('csvfile', 'BUILD_ID file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
     - DATA_API_PATH: "{{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/data_api"
     - TRADING_FRAMEWORK_PATH: "{{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/trading-system-framework"
   vars_files:
