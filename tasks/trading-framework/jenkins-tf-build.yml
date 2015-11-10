@@ -3,12 +3,13 @@
   user: admin
   sudo: yes
   sudo_user: root
+- include_vars: "{{ item }}"
+  with_first_found:
+     - "/home/jenkins.yml"
   vars: #Env variables lookup and use
-    - JENKINS_HOME: "{{ lookup('env','JENKINS_HOME') }} "
-    - JOB_NAME: "{{ lookup('env','JOB_NAME') }}"
-    - BUILD_ID: "{{ lookup('env','BUILD_ID') }}"
-    - DATA_API_PATH: "{{JENKINS_HOME}}/jobs/{{ JOB_NAME }}/builds/{{ BUILD_ID }}/golang/src/bitbucket.org/***REMOVED***/data_api"
-    - TRADING_FRAMEWORK_PATH: "{{ JENKINS_HOME }}/jobs/{{JOB_NAME}}/builds/{{ BUILD_ID }}/golang/src/bitbucket.org/***REMOVED***/trading-system-framework"
+    - env_file: "{{ lookup('file', '/home/jenkins/golang-env.properties') }}"
+    - DATA_API_PATH: "{{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/data_api"
+    - TRADING_FRAMEWORK_PATH: "{{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/trading-system-framework"
   vars_files:
     - ../../vars/secret
     - ../../vars/main.yml
@@ -18,7 +19,9 @@
     # Generating default GO Paths  
   - file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
   - file: path=/opt/go/pkg state=directory owner=admin group=admin mode=0775
-    
+  
+  - debug: msg="the value of foo.txt is {{ env_file }}"
+  
     #Executable PATHS
   - action: shell date '+%F.%H:%M:%S' 
     register: mydate 
