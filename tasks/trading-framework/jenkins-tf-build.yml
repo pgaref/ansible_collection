@@ -5,9 +5,9 @@
   sudo: yes
   sudo_user: root
   vars: #Env variables lookup and use
-    - JENKINS_HOME: "{{ lookup('csvfile', 'JENKINS_HOME file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
-    - JOB_PATH: "{{ lookup('csvfile', 'JOB_PATH file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
-    - BUILD_ID: "{{ lookup('csvfile', 'BUILD_ID file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
+    - JENKINS_HOME: "{{ lookup('csvfile', 'JENKINS_HOME file=/home/jenkins/golang-env.properties delimiter=, col=1') }}"
+    - JOB_PATH: "{{ lookup('csvfile', 'JOB_PATH file=/home/jenkins/golang-env.properties delimiter=, col=1') }}"
+    - BUILD_ID: "{{ lookup('csvfile', 'BUILD_ID file=/home/jenkins/golang-env.properties delimiter=, col=1') }}"
     - DATA_API_PATH: "{{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/data_api"
     - TRADING_FRAMEWORK_PATH: "{{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/trading-system-framework"
   vars_files:
@@ -16,23 +16,19 @@
     - ../../defaults/main.yml
 
   tasks:
+  
+  - debug: msg="### DATA API {{ DATA_API_PATH }} JenkinsHome => {{ JENKINS_HOME }}, JOB_NAME => {{ JOB_NAME }}, BUILD_ID => {{ BUILD_ID }}"
+  - debug: msg="### TRADING FRAMEWORK {{ TRADING_FRAMEWORK_PATH }}"
+  
     # Generating default GO Paths  
   - file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
   - file: path=/opt/go/pkg state=directory owner=admin group=admin mode=0775
-  
-  - debug: msg="the value of foo.txt is {{ env_file }}"
-  - debug: msg="JENKINS_HOME IS {{ lookup('csvfile', 'JENKINS_HOME file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
-  - debug: msg="JOB_PATH IS {{ lookup('csvfile', 'JOB_PATH file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
-  - debug: msg="BUILD_ID IS {{ lookup('csvfile', 'BUILD_ID file=/home/jenkins/golang-env.properties delimiter== col=1') }}"
   
     #Executable PATHS
   - action: shell date '+%F.%H:%M:%S' 
     register: mydate 
   - action: file dest=/opt/go/bin/{{ mydate.stdout }}  state=directory
     
-  - debug: msg="### DATA API {{ DATA_API_PATH }} JenkinsHome => {{ JENKINS_HOME }}, JOB_NAME => {{ JOB_NAME }}, BUILD_ID => {{ BUILD_ID }}"
-  - debug: msg="### TRADING FRAMEWORK {{ TRADING_FRAMEWORK_PATH }}"
-  
     # Creating build Executables - Moving to correct folder
   - name: Moving ***REMOVED***-simulator under /opt/go/bin/{{ mydate.stdout }}
     copy: src={{TRADING_FRAMEWORK_PATH}}/runners/simulator/simulator 
