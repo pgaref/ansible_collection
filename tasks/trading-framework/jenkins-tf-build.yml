@@ -1,0 +1,88 @@
+---
+- hosts: go-deploy
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars: #Env variables lookup and use
+    - JENKINS_HOME: {{ lookup('env','JENKINS_HOME') }} 
+    - JOB_NAME: {{ lookup('env','JOB_NAME') }}
+    - BUILD_ID: {{ lookup('env','BUILD_ID') }}
+    - DATA_API_PATH: {{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/data_api
+    - TRADING_FRAMEWORK_PATH: {{JENKINS_HOME}}/jobs/{{JOB_NAME}}/builds/{{BUILD_ID}}/golang/src/bitbucket.org/***REMOVED***/trading-system-framework
+  vars_files:
+    - ../../vars/secret
+    - ../../vars/main.yml
+    - ../../defaults/main.yml
+
+  tasks:
+    # Generating default GO Paths  
+  - file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
+  - file: path=/opt/go/pkg state=directory owner=admin group=admin mode=0775
+    
+    #Executable PATHS
+  - action: shell date '+%F.%H:%M:%S' 
+    register: mydate 
+  - action: file dest=/opt/go/bin/{{ mydate.stdout }}  state=directory
+    
+    
+    # Creating build Executables - Moving to correct folder
+  - name: Moving ***REMOVED***-simulator under /opt/go/bin/{{ mydate.stdout }}
+    copy: src={{TRADING_FRAMEWORK_PATH}}/runners/simulator/simulator 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator
+          mode="u=rwx,g=rwx,o=rwx"    
+  - name: Moving ***REMOVED***-allocations under /opt/go/bin/{{ mydate.stdout }}
+    copy: src={{TRADING_FRAMEWORK_PATH}}/runners/allocations/allocations 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations
+          mode="u=rwx,g=rwx,o=rwx"            
+  - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
+    copy: src={{TRADING_FRAMEWORK_PATH}}/runners/execution/execution 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-monitoring under /opt/go/bin/{{ mydate.stdout }}
+    copy: src={{TRADING_FRAMEWORK_PATH}}/runners/monitoring/monitoring 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-keepAlive under /opt/go/bin/{{ mydate.stdout }}
+    copy: src={{TRADING_FRAMEWORK_PATH}}/runners/keepAlive/keepAlive 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-keepAlive
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-commission under /opt/go/bin/{{ mydate.stdout }}
+    copy: src={{TRADING_FRAMEWORK_PATH}}/runners/commission/commission 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
+    copy: src={{DATA_API}}/data_api
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
+          mode="u=rwx,g=rwx,o=rwx"
+    
+    # Creating symbolic links for easy access
+  - name: Creating new symbolic links
+    command: ls -al
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator dest=/usr/bin/***REMOVED***-simulator-pre
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations dest=/usr/bin/***REMOVED***-allocations-pre
+          owner=root
+          group=root
+          state=link               
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution-pre
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring-pre
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-keepAlive dest=/usr/bin/***REMOVED***-keepAlive-pre
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission dest=/usr/bin/***REMOVED***-commission-pre
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api-pre
+          owner=root
+          group=root
+          state=link
