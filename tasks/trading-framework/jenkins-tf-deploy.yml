@@ -1,0 +1,129 @@
+---
+- hosts: go-deploy
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../../vars/secret
+    - ../../vars/main.yml
+    - ../../defaults/main.yml
+
+  tasks:
+   
+   # Generating default Build Paths  
+  - file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
+  - file: path=/opt/go/pkg state=directory owner=admin group=admin mode=0775
+    
+    #Executable PATHS
+  - action: shell date '+%F.%H:%M:%S' 
+    register: mydate 
+  - action: file dest=/opt/go/bin/{{ mydate.stdout }}  state=directory 
+                                 
+    
+    # Copying build executables from Jenkins Host to the whole cluster.
+    # The copy module copies a file on the local box to remote locations.
+  - name: Copying ***REMOVED***-simulator under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/usr/bin/***REMOVED***-simulator-pre 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator
+          mode="u=rwx,g=rwx,o=rwx"
+          follow=yes 
+  - name: Copying ***REMOVED***-allocations under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/usr/bin/***REMOVED***-allocations-pre 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations
+          mode="u=rwx,g=rwx,o=rwx"
+          follow=yes             
+  - name: Copying ***REMOVED***-oms under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/usr/bin/***REMOVED***-oms-pre
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-oms
+          mode="u=rwx,g=rwx,o=rwx"
+          follow=yes
+  - name: Copying ***REMOVED***-keepAlive under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/usr/bin/***REMOVED***-keepAlive-pre
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-keepAlive
+          mode="u=rwx,g=rwx,o=rwx"
+          follow=yes
+  - name: Copying ***REMOVED***-commission under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/usr/bin/***REMOVED***-commission-pre 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission
+          mode="u=rwx,g=rwx,o=rwx"
+          follow=yes
+  - name: Copying ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/usr/bin/***REMOVED***-data_api-pre
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
+          mode="u=rwx,g=rwx,o=rwx"
+          follow=yes
+          
+          
+    # Creating a rollback symbolic links
+  - name: Check that /usr/bin/***REMOVED***-simulator exists
+    stat: path=/usr/bin/***REMOVED***-simulator
+    register: ste
+  - name: Creating ***REMOVED***-simulator rollback symbolic link
+    command: mv /usr/bin/***REMOVED***-simulator /usr/bin/***REMOVED***-simulator-old
+    when: ste.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-allocations exists
+    stat: path=/usr/bin/***REMOVED***-allocations
+    register: ste
+  - name: Creating ***REMOVED***-allocations rollback symbolic link
+    command: mv /usr/bin/***REMOVED***-allocations /usr/bin/***REMOVED***-allocations-old
+    when: ste.stat.exists    
+        
+  - name: Check that /usr/bin/***REMOVED***-oms exists
+    stat: path=/usr/bin/***REMOVED***-oms
+    register: ste
+  - name: Creating ***REMOVED***-oms rollback symbolic link
+    command: mv /usr/bin/***REMOVED***-oms /usr/bin/***REMOVED***-oms-old
+    when: ste.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-keepAlive exists  
+    stat: path=/usr/bin/***REMOVED***-keepAlive
+    register: stm
+  - name: Creating ***REMOVED***-keepAlive rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-keepAlive /usr/bin/***REMOVED***-keepAlive-old
+    when: stm.stat.exists
+  - name: Check that /usr/bin/***REMOVED***-commission exists  
+    stat: path=/usr/bin/***REMOVED***-commission
+    register: stm
+  - name: Creating ***REMOVED***-commission rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-commission /usr/bin/***REMOVED***-commission-old
+    when: stm.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-data_api exists  
+    stat: path=/usr/bin/***REMOVED***-data_api
+    register: std
+  - name: Creating ***REMOVED***-data-api rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-data_api /usr/bin/***REMOVED***-data_api-old
+    when: std.stat.exists
+    
+    # Creating symbolic links for easy access
+  - name: Creating new symbolic links
+    command: ls -al
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator dest=/usr/bin/***REMOVED***-simulator
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations dest=/usr/bin/***REMOVED***-allocations
+          owner=root
+          group=root
+          state=link               
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-oms dest=/usr/bin/***REMOVED***-oms
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-keepAlive dest=/usr/bin/***REMOVED***-keepAlive
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission dest=/usr/bin/***REMOVED***-commission
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api
+          owner=root
+          group=root
+          state=link
+          
+    #Setting ENV variable
+  - name: Adding the path in the Admin user bashrc files
+    lineinfile: dest=/home/admin/.bashrc line="export API=\'odds_parser:564$TERRG$ERF$\'" insertafter="EOF" regexp="export(.*)API=(.*)\'" state=present
