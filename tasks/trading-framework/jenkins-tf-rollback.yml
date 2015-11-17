@@ -1,0 +1,61 @@
+---
+- hosts: go-deploy
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../vars/secret
+    - ../vars/main.yml
+    - ../defaults/main.yml
+
+  tasks:
+     
+      # Golang-Trading - Rolling back to previous working version
+  - name: Check that /usr/bin/***REMOVED***-simulator-old exists
+    stat: path=/usr/bin/***REMOVED***-simulator-old
+    register: ste
+  - name: Rolling back ***REMOVED***-simulator
+    command: mv /usr/bin/***REMOVED***-simulator-old /usr/bin/***REMOVED***-simulator
+    when: ste.stat.exists
+          
+  - name: Check that /usr/bin/***REMOVED***-oms-old exists
+    stat: path=/usr/bin/***REMOVED***-oms-old
+    register: ste
+  - name: Rolling back ***REMOVED***-oms
+    command: mv /usr/bin/***REMOVED***-oms-old /usr/bin/***REMOVED***-oms
+    when: ste.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-keepAlive-old exists  
+    stat: path=/usr/bin/***REMOVED***-keepAlive-old
+    register: stm
+  - name: Rolling back ***REMOVED***-keepAlive  
+    command: mv /usr/bin/***REMOVED***-keepAlive-old /usr/bin/***REMOVED***-keepAlive
+    when: stm.stat.exists    
+
+  - name: Check that /usr/bin/***REMOVED***-commission-old exists  
+    stat: path=/usr/bin/***REMOVED***-commission-old
+    register: stm
+  - name: Rolling back ***REMOVED***-commission  
+    command: mv /usr/bin/***REMOVED***-commission-old /usr/bin/***REMOVED***-commission
+    when: stm.stat.exists    
+    
+  - name: Check that /usr/bin/***REMOVED***-allocations-old exists  
+    stat: path=/usr/bin/***REMOVED***-allocations-old
+    register: std
+  - name: Rolling back ***REMOVED***-allocations  
+    command: mv /usr/bin/***REMOVED***-allocations-old /usr/bin/***REMOVED***-allocations
+    when: std.stat.exists    
+    
+  - name: Check that /usr/bin/***REMOVED***-data_api-old exists  
+    stat: path=/usr/bin/***REMOVED***-data_api-old
+    register: std
+  - name: Rolling back ***REMOVED***-data_api  
+    command: mv /usr/bin/***REMOVED***-data_api-old /usr/bin/***REMOVED***-data_api
+    when: std.stat.exists
+          
+    #Setting ENV variable
+  - name: Adding the path in the Admin user bashrc files
+    lineinfile: dest=/home/admin/.bashrc line="export API=\'odds_parser:564$TERRG$ERF$\'" insertafter="EOF" regexp="export(.*)API=(.*)\'" state=present
+          
+
+
