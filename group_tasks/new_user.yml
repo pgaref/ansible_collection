@@ -1,10 +1,10 @@
 ---
-- hosts: dbservers
+- hosts: all
   user: ansible
   sudo: yes
   sudo_user: root
   vars:
-    user_name: ansible
+    user_name: strata_root
     description_user: Ansible Cluster Manager
   vars_files:
     - ../vars/secret
@@ -23,8 +23,9 @@
     user: name="{{user_name}}" comment="{{description_user}}" password="{{user_password}}" createhome="yes" shell="/bin/bash"
     notify:
     - restart ssh
-  - name: "Giving sudo access"
-    shell: sudo adduser {{user_name}} sudo executable=/bin/bash 
+#  - name: "Giving sudo access"
+#    shell: sudo adduser {{user_name}} sudo executable=/bin/bash 
+  
   handlers:
     - name: restart ssh
       service: name=ssh state=restarted
