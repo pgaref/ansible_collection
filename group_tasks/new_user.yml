@@ -1,0 +1,30 @@
+---
+- hosts: dbservers
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars:
+    user_name: ansible
+    description_user: Ansible Cluster Manager
+  vars_files:
+    - ../vars/secret
+    - ../group_vars/ssh_users.yml
+  vars_prompt:
+    - name: "user_password"    
+      prompt: "Enter a password for the user"    
+      private: yes    
+      encrypt: "md5_crypt" #need to have python-passlib installed in local machine before we can use it    
+      confirm: yes    
+      salt_size: 7
+
+  tasks:
+
+  - name: "Adding new user" 
+    user: name="{{user_name}}" comment="{{description_user}}" password="{{user_password}}" createhome="no" shell="/bin/bash"
+    notify:
+    - restart ssh
+  - name: "Giving sudo access"
+    shell: sudo adduser {{user_name}} sudo executable=/bin/bash 
+  handlers:
+    - name: restart ssh
+      service: name=ssh state=restarted
