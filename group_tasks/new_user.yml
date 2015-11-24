@@ -28,9 +28,9 @@
   
   - name: "Fixing Log Owners"
     shell: sudo chown root:adm /var/log/supervisor; sudo chown -R root:adm /var/log/supervisor/* executable=/bin/bash 
- - name: "Fixing Log Access"
+  - name: "Fixing Log Access"
     shell: sudo chmod 755 /var/log/supervisor; sudo chmod -R 755 /var/log/supervisor/* executable=/bin/bash 
- - name: "Adding admin to adm Group"
+  - name: "Adding admin to adm Group"
     shell: sudo usermod -aG adm admin executable=/bin/bash   
     
 #  - name: create key directory
@@ -38,7 +38,7 @@
 #      owner=0 group=0 mode=0755
 
 #  - name: Upload user-key
-   - debug: msg= "User  {{ item.name}}"  
+  - debug: msg= "User  {{ item.name}}"  
 #    action: copy src=/opt/ansible_playbooks/keys/{{ item.name }}
 #      dest=/opt/ssh/authorized_keys
 #      owner=0 group=0 mode=644
