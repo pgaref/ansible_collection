@@ -18,11 +18,19 @@
       owner=0 group=0 mode=644
     with_items: sshusers
 
-  - name: Add ssh user keys
+  - name: Adding Authorised SSH keys
     authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/keys/'+item.name) }}" state=present
     with_items: sshusers
+    when: item.authorized == true
     notify:
     - restart ssh
+    
+  - name: Removing Unauthorised SSH keys
+    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/keys/'+item.name) }}" state=absent
+    with_items: sshusers
+    when: item.authorized == false
+    notify:
+    - restart ssh    
 
   handlers:
     - name: restart ssh
