@@ -1,32 +1,69 @@
 ---
-
 #users who get SSH access to these machines
+# authorized defines if they get access or not 
+# root: give access as root user ( ***REMOVED***_root )
 sshusers:
+
   - name: mary
     authorized: true
-  - name: rahul
-    authorized: true
-  - name: jovan
-    authorized: true
-  - name: paolo
-    authorized: true
-  - name: polyvios
-    authorized: true
-  - name: polyvios-home
-    authorized: true    
-  - name: olly
-    authorized: true
-  - name: robert
-    authorized: true
+    root: true
+
   - name: kostasc
-    authorized: true 
-  - name: carmen
-    authorized: true 
+    authorized: true
+    root: true
+    
   - name: panagiotis
     authorized: true
+    root: true
+    
+  - name: rahul
+    authorized: true
+    root: false
+    
+  - name: jovan
+    authorized: true
+    root: false
+    
+  - name: paolo
+    authorized: true
+    root: false
+    
+  - name: polyvios
+    authorized: true
+    root: false
+    
+  - name: polyvios_home
+    authorized: true    
+    root: false
+    
+  - name: olly
+    authorized: true
+    root: false
+    
+  - name: olly_home
+    authorized: true
+    root: false
+    
+  - name: robert
+    authorized: true
+    root: false
+    
+  - name: carmen
+    authorized: true
+    root: false
+    
   - name: daniel
-    authorized: true 
+    authorized: true
+    root: false
+    
   - name: dmytro
     authorized: true
+    root: false
+    
   - name: sami
     authorized: true 
+    root: false
+    
+  - name: dario
+    authorized: true
+    root: false
