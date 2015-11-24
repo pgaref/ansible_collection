@@ -24,7 +24,7 @@
     notify:
     - restart ssh
   - name: "Giving sudo access"
-    shell: sudo adduser {{user_name}} sudo executable=/bin/bash 
+    shell: sudo adduser "{{user_name}}" sudo executable=/bin/bash 
 ###########################################################  
   - name: "Fixing Log Owners"
     shell: sudo chown root:adm /var/log/supervisor; sudo chown -R root:adm /var/log/supervisor/* executable=/bin/bash 
