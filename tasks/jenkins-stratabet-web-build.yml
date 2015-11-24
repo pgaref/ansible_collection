@@ -1,6 +1,6 @@
 ---
 - hosts: stratabet-web
-  user: admin
+  user: ansible
   sudo: yes
   sudo_user: root
   vars:
