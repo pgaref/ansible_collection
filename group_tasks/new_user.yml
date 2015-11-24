@@ -1,6 +1,6 @@
 ---
 - hosts: dbservers
-  user: ansible
+  user: admin
   sudo: yes
   sudo_user: root
   vars:
