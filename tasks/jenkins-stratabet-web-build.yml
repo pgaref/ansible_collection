@@ -95,7 +95,9 @@
   - name: Executing go-get under advantedj_api
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/ && go get executable=/bin/bash
   - name: Building advantedj_api
-    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/ && go build executable=/bin/bash    
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/ && go build executable=/bin/bash
+  - name: Building advantedj_api onboarding runner 
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/runners/onboarding && go build executable=/bin/bash    
     notify:
     - test all
     
@@ -104,10 +106,13 @@
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/data_api/data_api
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
           mode="u=rwx,g=rwx,o=rwx"
-    # Creating build Executables - Moving to correct folder     
   - name: Moving ***REMOVED***-advantedj_api under /opt/go/bin/'{{ mydate }}'
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/advantedj_api
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-advantedj_api
+          mode="u=rwx,g=rwx,o=rwx"   
+  - name: Moving ***REMOVED***-advantedj_api-onboarding under /opt/go/bin/'{{ mydate }}'
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/runners/onboarding/onboarding
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-onboarding
           mode="u=rwx,g=rwx,o=rwx"
     
     # Creating symbolic links for easy access
@@ -118,6 +123,10 @@
           group=root
           state=link
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api-pre
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-onboarding dest=/usr/bin/***REMOVED***-onboarding-pre
           owner=root
           group=root
           state=link
