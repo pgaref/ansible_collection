@@ -67,3 +67,7 @@ sshusers:
   - name: dario
     authorized: true
     root: false
+    
+  - name: bugra
+    authorized: true
+    root: false
