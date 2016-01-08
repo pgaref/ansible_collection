@@ -25,6 +25,13 @@
     notify:
     - restart ssh
     
+  - name: Adding Strata_Root SSH keys
+    authorized_key: user=strata_root key="{{ lookup('file', '/opt/ansible_playbooks/keys/'+item.name) }}" state=present
+    with_items: sshusers
+    when: item.root == true
+    notify:
+    - restart ssh
+    
   - name: Removing Unauthorised SSH keys
     authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/keys/'+item.name) }}" state=absent
     with_items: sshusers
