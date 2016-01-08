@@ -12,6 +12,10 @@ sshusers:
     authorized: true
     root: true
     
+  - name: kostasc_home
+    authorized: true
+    root: true
+    
   - name: panagiotis
     authorized: true
     root: true
