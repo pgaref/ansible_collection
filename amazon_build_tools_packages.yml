@@ -76,6 +76,9 @@
     apt: name=libopenblas-dev state=present
     apt: name=liblapack-dev state=present
 
+  - name: Kostas extra dependencies
+    apt: name=libcurl4-openssl-dev state=present
+    
     # Mount S3 bucker
     
     # Run Raw data parser 
