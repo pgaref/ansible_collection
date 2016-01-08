@@ -71,3 +71,7 @@ sshusers:
   - name: bugra
     authorized: true
     root: false
+    
+  - name: enrico
+    authorized: true
+    root: false
