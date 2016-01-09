@@ -52,6 +52,10 @@ sshusers:
     authorized: true
     root: false
     
+  - name: robert_home
+    authorized: true
+    root: false
+    
   - name: carmen
     authorized: true
     root: false
