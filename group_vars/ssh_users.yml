@@ -80,6 +80,10 @@ sshusers:
     authorized: true
     root: false
     
+  - name: bugra_desktop
+    authorized: true
+    root: false    
+    
   - name: enrico
     authorized: true
     root: false
