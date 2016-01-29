@@ -87,3 +87,7 @@ sshusers:
   - name: enrico
     authorized: true
     root: false
+    
+  - name: martin
+    authorized: true
+    root: false
