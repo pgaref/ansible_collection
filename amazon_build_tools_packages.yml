@@ -79,6 +79,12 @@
   - name: Kostas extra dependencies
     apt: name=libcurl4-openssl-dev state=present
     
+  - name: Cassandra dependencies
+    apt: name=libev4 state=present
+
+  - name: Cassandra more dependencies
+    apt: name=libev-dev state=present
+    
     # Mount S3 bucker
     
     # Run Raw data parser 
