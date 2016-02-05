@@ -1,0 +1,57 @@
+---
+- hosts: all
+  user: ansible
+  sudo: yes
+  sudo_user: root
+  vars:
+    user_name: strata_root
+    description_user: Ansible Cluster Manager
+  vars_files:
+    - ../vars/secret
+    - ../group_vars/ssh_users.yml
+  vars_prompt:
+    - name: "user_password"    
+      prompt: "Enter a password for the user"    
+      private: yes    
+      encrypt: "md5_crypt" #need to have python-passlib installed in local machine before we can use it    
+      confirm: yes    
+      salt_size: 7
+
+  tasks:
+
+  - name: "Adding new user" 
+    user: name="{{user_name}}" comment="{{description_user}}" password="{{user_password}}" createhome="yes" shell="/bin/bash"
+    notify:
+    - restart ssh
+  - name: "Giving sudo access"
+    shell: sudo adduser {{user_name}} sudo executable=/bin/bash 
+###########################################################  
+#  - name: "Fixing Log Owners"
+#    shell: sudo chown root:adm /var/log/supervisor; sudo chown -R root:adm /var/log/supervisor/* executable=/bin/bash 
+#  - name: "Fixing Log Access"
+#    shell: sudo chmod 755 /var/log/supervisor; sudo chmod -R 755 /var/log/supervisor/* executable=/bin/bash 
+#  - name: "Adding admin to adm Group"
+#    shell: sudo usermod -aG adm admin executable=/bin/bash   
+###########################################################    
+  - name: create key directory
+    action: file path=/opt/ssh/authorized_keys state=directory
+      owner=0 group=0 mode=0755
+
+  - name: Upload user-key
+#  - debug: msg= "User  {{ item.name}}"  
+    action: copy src=/opt/ansible_playbooks/keys/{{ item.name }}
+      dest=/opt/ssh/authorized_keys
+      owner=0 group=0 mode=644
+    with_items: sshusers
+    when: item.root == true
+
+  - name: Add ssh user keys
+    authorized_key: user="{{user_name}}" key="{{ lookup('file', '/opt/ansible_playbooks/keys/'+item.name) }}" state=present
+    with_items: sshusers
+    when: item.root == true
+    notify:
+    - restart ssh
+    
+  handlers:
+    - name: restart ssh
+      service: name=ssh state=restarted
