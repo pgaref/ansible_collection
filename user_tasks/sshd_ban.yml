@@ -19,7 +19,7 @@
     with_items: sshusers
 
   - name: Remove ssh user keys
-    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/keys/'+item.name) }}" state=absent
+    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=absent
     with_items: sshusers
     notify:
     - restart ssh
