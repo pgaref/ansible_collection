@@ -49,11 +49,11 @@ sshusers:
     root: false
     
   - name: robert
-    authorized: true
+    authorized: false
     root: false
     
   - name: robert_home
-    authorized: true
+    authorized: false
     root: false
     
   - name: carmen
