@@ -91,3 +91,7 @@ sshusers:
   - name: martin
     authorized: true
     root: false
+
+  - name: tomspooner
+    authorized: true
+    root: false
