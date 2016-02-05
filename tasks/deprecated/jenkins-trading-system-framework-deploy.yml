@@ -1,0 +1,220 @@
+---
+- hosts: go-deploy
+  user: admin
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../vars/secret
+    - ../vars/main.yml
+    - ../defaults/main.yml
+
+  tasks:
+   
+   # Generating default GO Paths  
+  - file: path=/opt/go/src/bitbucket.org/***REMOVED*** state=directory owner=admin group=admin mode=0775
+  - file: path=/opt/go/bin state=directory owner=admin group=admin mode=0775
+  - file: path=/opt/go/pkg state=directory owner=admin group=admin mode=0775
+    
+    #Project PATHS
+  - name: Setup the trading-system-framework Git repo
+    git: repo=git@bitbucket.org:***REMOVED***/trading-system-framework.git
+          dest=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework
+          force=yes
+          clone=yes
+          accept_hostkey=yes
+          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
+  - name: Setup the data-api dependency Git repo
+    git: repo=git@bitbucket.org:***REMOVED***/data_api.git
+          dest=/opt/go/src/bitbucket.org/***REMOVED***/data_api
+          force=yes
+          clone=yes
+          accept_hostkey=yes
+          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
+          
+    # Install Go lang dependencies and fix path
+  - name: Download the Go tarball
+    get_url: url={{ go_download_location }}
+           dest=/usr/local/src/{{ go_tarball }}
+           sha256sum={{ go_tarball_checksum }}
+
+  - name: Register the current Go version (if any)
+    command: /usr/local/go/bin/go version
+    ignore_errors: yes
+    register: go_version
+    changed_when: false
+
+  - name: Extract the Go tarball if Go is not yet installed or if it is not the desired version
+    command: tar -C /usr/local -xf /usr/local/src/{{ go_tarball }}
+    when: go_version|failed or go_version.stdout != go_version_target
+
+    #Configuring Path variables
+  - name: Add the Go bin directory to the PATH environment variable for all users
+    copy: src=../files/go-bin.sh
+          dest=/etc/profile.d
+  - name: Set GOPATH for all users
+    copy: src=../files/go-path.sh
+          dest=/etc/profile.d
+  - name: Set API env variable for all users
+    copy: src=../files/go-api.sh
+          dest=/etc/profile.d
+    
+    #Executable PATHS
+  - action: shell date '+%F.%H:%M:%S' 
+    register: mydate 
+  - action: file dest=/opt/go/bin/{{ mydate.stdout }}  state=directory 
+                              
+    # Create go-executables -- GO env dependencies were needed
+  - name: Executing go-get under reports
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/reports && go get executable=/bin/bash
+  - name: Building go-data-api under reports
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/reports && go build executable=/bin/bash    
+    
+  - name: Executing go-get under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/ && go get executable=/bin/bash
+  - name: Executing go-install under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/ && go install executable=/bin/bash
+
+  - name: Building go-simulator under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/simulator && go build executable=/bin/bash  
+  
+  - name: Building go-execution under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution && go build executable=/bin/bash
+  - name: Building go-monitoring under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/monitoring && go build executable=/bin/bash
+  - name: Building go-keepAlive under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/keepAlive && go build executable=/bin/bash
+  - name: Building go-commission under trading-system-framework
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/commission && go build executable=/bin/bash
+    
+  - name: Executing go-get under allocations
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations && go get executable=/bin/bash
+  - name: Building allocations under runners
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations && go build executable=/bin/bash    
+    
+  - name: Executing go-get under data_api
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api/ && go get executable=/bin/bash
+  - name: Building go-data-api under data_api
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go build executable=/bin/bash
+    notify:
+    - test all    
+    
+    # Creating build Executables - Moving to corrent folder
+  - name: Moving ***REMOVED***-simulator under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/simulator/simulator 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator
+          mode="u=rwx,g=rwx,o=rwx" 
+  - name: Moving ***REMOVED***-allocations under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/allocations/allocations 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations
+          mode="u=rwx,g=rwx,o=rwx"             
+  - name: Moving ***REMOVED***-execution under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/execution/execution 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-monitoring under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/monitoring/monitoring 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-keepAlive under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/keepAlive/keepAlive 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-keepAlive
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-commission under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework/runners/commission/commission 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission
+          mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/data_api/data_api
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
+          mode="u=rwx,g=rwx,o=rwx"
+          
+          
+    # Creating a rollback symbolic link
+  - name: Check that /usr/bin/***REMOVED***-simulator exists
+    stat: path=/usr/bin/***REMOVED***-simulator
+    register: ste
+  - name: Creating ***REMOVED***-simulator rollback symbolic link
+    command: mv /usr/bin/***REMOVED***-simulator /usr/bin/***REMOVED***-simulator-old
+    when: ste.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-allocations exists
+    stat: path=/usr/bin/***REMOVED***-allocations
+    register: ste
+  - name: Creating ***REMOVED***-allocations rollback symbolic link
+    command: mv /usr/bin/***REMOVED***-allocations /usr/bin/***REMOVED***-allocations-old
+    when: ste.stat.exists    
+        
+  - name: Check that /usr/bin/***REMOVED***-execution exists
+    stat: path=/usr/bin/***REMOVED***-execution
+    register: ste
+  - name: Creating ***REMOVED***-execution rollback symbolic link
+    command: mv /usr/bin/***REMOVED***-execution /usr/bin/***REMOVED***-execution-old
+    when: ste.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-monitoring exists  
+    stat: path=/usr/bin/***REMOVED***-monitoring
+    register: stm
+  - name: Creating ***REMOVED***-monitoring rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-monitoring /usr/bin/***REMOVED***-monitoring-old
+    when: stm.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-keepAlive exists  
+    stat: path=/usr/bin/***REMOVED***-keepAlive
+    register: stm
+  - name: Creating ***REMOVED***-keepAlive rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-keepAlive /usr/bin/***REMOVED***-keepAlive-old
+    when: stm.stat.exists
+  - name: Check that /usr/bin/***REMOVED***-commission exists  
+    stat: path=/usr/bin/***REMOVED***-commission
+    register: stm
+  - name: Creating ***REMOVED***-commission rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-commission /usr/bin/***REMOVED***-commission-old
+    when: stm.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-data_api exists  
+    stat: path=/usr/bin/***REMOVED***-data_api
+    register: std
+  - name: Creating ***REMOVED***-data-api rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-data_api /usr/bin/***REMOVED***-data_api-old
+    when: std.stat.exists
+    
+    # Creating symbolic links for easy access
+  - name: Creating new symbolic links
+    command: ls -al
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-simulator dest=/usr/bin/***REMOVED***-simulator
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-allocations dest=/usr/bin/***REMOVED***-allocations
+          owner=root
+          group=root
+          state=link               
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-execution dest=/usr/bin/***REMOVED***-execution
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-monitoring dest=/usr/bin/***REMOVED***-monitoring
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-keepAlive dest=/usr/bin/***REMOVED***-keepAlive
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission dest=/usr/bin/***REMOVED***-commission
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api
+          owner=root
+          group=root
+          state=link
+          
+    #Setting ENV variable
+  - name: Adding the path in the Admin user bashrc files
+    lineinfile: dest=/home/admin/.bashrc line="export API=\'odds_parser:564$TERRG$ERF$\'" insertafter="EOF" regexp="export(.*)API=(.*)\'" state=present
+          
+  handlers:
+   - name: test all
+     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/trading-system-framework && go test . ./... executable=/bin/bash
+
