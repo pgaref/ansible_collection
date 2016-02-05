@@ -7,7 +7,6 @@
     - ../../vars/secret
     
   tasks:
-  
   - file: path='/home/admin/.ansible_playbooks' state=directory mode=0755
   - file: path='/home/admin/.ansible_playbooks/keys' state=directory mode=0755
   - name: Copying Public key
