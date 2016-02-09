@@ -4,7 +4,7 @@
   sudo: yes
   sudo_user: root
   vars_files:
-    - ../vars/secret
+    - ../../vars/secret
     
   tasks:
   - file: path='/home/admin/ansible_playbooks' state=directory mode=0755
