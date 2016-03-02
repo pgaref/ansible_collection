@@ -1,0 +1,13 @@
+---
+- hosts: mathservers
+  user: ansible
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../../vars/secret
+    
+  tasks:
+  - name: Updating Spark virtual environment
+    command: ***REMOVED***-launcher.sh -e ***REMOVED***-trading-prod -n spark -f -s python -- -c 'import math; print math.pi'
+    become: yes
+    become_user: spark
