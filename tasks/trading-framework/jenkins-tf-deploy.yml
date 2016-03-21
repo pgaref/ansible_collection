@@ -47,6 +47,11 @@
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission
           mode="u=rwx,g=rwx,o=rwx"
           follow=yes
+  - name: Copying ***REMOVED***-trading_days under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/usr/bin/***REMOVED***-trading_days-pre 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-trading_days
+          mode="u=rwx,g=rwx,o=rwx"
+          follow=yes
   - name: Copying ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
     copy: src=/usr/bin/***REMOVED***-data_api-pre
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api
@@ -87,6 +92,13 @@
     register: stm
   - name: Creating ***REMOVED***-commission rollback symbolic link  
     command: mv /usr/bin/***REMOVED***-commission /usr/bin/***REMOVED***-commission-old
+    when: stm.stat.exists
+    
+  - name: Check that /usr/bin/***REMOVED***-trading_days exists  
+    stat: path=/usr/bin/***REMOVED***-trading_days
+    register: stm
+  - name: Creating ***REMOVED***-trading_days rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-trading_days /usr/bin/***REMOVED***-trading_days-old
     when: stm.stat.exists
     
   - name: Check that /usr/bin/***REMOVED***-data_api exists  
