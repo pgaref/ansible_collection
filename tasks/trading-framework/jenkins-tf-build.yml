@@ -50,9 +50,9 @@
     copy: src={{TRADING_FRAMEWORK_PATH}}/runners/commission/commission 
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission
           mode="u=rwx,g=rwx,o=rwx"
-  - name: Moving ***REMOVED***-trading_days under /opt/go/bin/{{ mydate.stdout }}
-    copy: src={{TRADING_FRAMEWORK_PATH}}/runners/trading_days/trading_days
-          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-trading_days
+  - name: Moving ***REMOVED***-tradingDays under /opt/go/bin/{{ mydate.stdout }}
+    copy: src={{TRADING_FRAMEWORK_PATH}}/runners/tradingDays/tradingDays
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-tradingDays
           mode="u=rwx,g=rwx,o=rwx"
   - name: Moving ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
     copy: src={{DATA_API_PATH}}/data_api
@@ -82,7 +82,7 @@
           owner=root
           group=root
           state=link
-  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-trading_days dest=/usr/bin/***REMOVED***-trading_days-pre
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-tradingDays dest=/usr/bin/***REMOVED***-tradingDays-pre
           owner=root
           group=root
           state=link
