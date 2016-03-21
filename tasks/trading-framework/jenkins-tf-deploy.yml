@@ -131,6 +131,10 @@
           owner=root
           group=root
           state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission dest=/usr/bin/***REMOVED***-trading_days
+          owner=root
+          group=root
+          state=link
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-data_api dest=/usr/bin/***REMOVED***-data_api
           owner=root
           group=root
