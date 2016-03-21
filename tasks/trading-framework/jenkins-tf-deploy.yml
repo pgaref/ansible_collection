@@ -47,9 +47,9 @@
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission
           mode="u=rwx,g=rwx,o=rwx"
           follow=yes
-  - name: Copying ***REMOVED***-trading_days under /opt/go/bin/{{ mydate.stdout }}
-    copy: src=/usr/bin/***REMOVED***-trading_days-pre 
-          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-trading_days
+  - name: Copying ***REMOVED***-tradingDays under /opt/go/bin/{{ mydate.stdout }}
+    copy: src=/usr/bin/***REMOVED***-tradingDays-pre 
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-tradingDays
           mode="u=rwx,g=rwx,o=rwx"
           follow=yes
   - name: Copying ***REMOVED***-data_api under /opt/go/bin/{{ mydate.stdout }}
@@ -97,8 +97,8 @@
   - name: Check that /usr/bin/***REMOVED***-trading_days exists  
     stat: path=/usr/bin/***REMOVED***-trading_days
     register: stm
-  - name: Creating ***REMOVED***-trading_days rollback symbolic link  
-    command: mv /usr/bin/***REMOVED***-trading_days /usr/bin/***REMOVED***-trading_days-old
+  - name: Creating ***REMOVED***-tradingDays rollback symbolic link  
+    command: mv /usr/bin/***REMOVED***-tradingDays /usr/bin/***REMOVED***-tradingDays-old
     when: stm.stat.exists
     
   - name: Check that /usr/bin/***REMOVED***-data_api exists  
@@ -131,7 +131,7 @@
           owner=root
           group=root
           state=link
-  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-commission dest=/usr/bin/***REMOVED***-trading_days
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-tradingDays dest=/usr/bin/***REMOVED***-tradingDays
           owner=root
           group=root
           state=link
