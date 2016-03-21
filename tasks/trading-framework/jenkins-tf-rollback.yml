@@ -46,11 +46,11 @@
     command: mv /usr/bin/***REMOVED***-allocations-old /usr/bin/***REMOVED***-allocations
     when: std.stat.exists    
     
-  - name: Check that /usr/bin/***REMOVED***-trading_days-old exists  
-    stat: path=/usr/bin/***REMOVED***-trading_days-old
+  - name: Check that /usr/bin/***REMOVED***-tradingDays-old exists  
+    stat: path=/usr/bin/***REMOVED***-tradingDays-old
     register: std
-  - name: Rolling back ***REMOVED***-trading_days  
-    command: mv /usr/bin/***REMOVED***-trading_days-old /usr/bin/***REMOVED***-trading_days
+  - name: Rolling back ***REMOVED***-tradingDays  
+    command: mv /usr/bin/***REMOVED***-tradingDays-old /usr/bin/***REMOVED***-tradingDays
     when: std.stat.exists    
     
   - name: Check that /usr/bin/***REMOVED***-data_api-old exists  
