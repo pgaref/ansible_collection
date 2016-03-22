@@ -98,6 +98,8 @@
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/ && go build executable=/bin/bash
   - name: Building advantedj_api onboarding runner 
     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/runners/onboarding && go build executable=/bin/bash    
+  - name: Building advantedj_api lineup comparison runner 
+    shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/runners/lineup && go build executable=/bin/bash    
     notify:
     - test all
     
@@ -114,6 +116,10 @@
     copy: src=/opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/runners/onboarding/onboarding
           dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-onboarding
           mode="u=rwx,g=rwx,o=rwx"
+  - name: Moving ***REMOVED***-advantedj_api-lineup under /opt/go/bin/'{{ mydate }}'
+    copy: src=/opt/go/src/bitbucket.org/***REMOVED***/advantedj_api/runners/lineup/lineup
+          dest=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-lineup
+          mode="u=rwx,g=rwx,o=rwx"
     
     # Creating symbolic links for easy access
   - name: Creating new symbolic links
@@ -127,6 +133,10 @@
           group=root
           state=link
   - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-onboarding dest=/usr/bin/***REMOVED***-onboarding-pre
+          owner=root
+          group=root
+          state=link
+  - file: src=/opt/go/bin/{{ mydate.stdout }}/***REMOVED***-lineup dest=/usr/bin/***REMOVED***-lineup-pre
           owner=root
           group=root
           state=link
