@@ -69,7 +69,7 @@ sshusers:
     root: false
     
   - name: sami
-    authorized: true 
+    authorized: false
     root: false
     
   - name: dario
