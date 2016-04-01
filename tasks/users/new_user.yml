@@ -4,8 +4,8 @@
   sudo: yes
   sudo_user: root
   vars:
-    user_name: strata_root
-    description_user: Ansible Cluster Manager
+    user_name: spark
+    description_user: Spark distributed processing user
   vars_files:
     - ../../vars/secret
     - ../../vars/ssh_users.yml
