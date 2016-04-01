@@ -1,0 +1,75 @@
+---
+- hosts: mathservers
+  user: ansible
+  become: yes
+  become_method: sudo
+  vars_files:
+    - ../../vars/secret
+    - ../../defaults/main.yml
+    - remote_users.yml
+
+  tasks:
+  - name: Installing UFW package (APT)
+    apt:
+      pkg: "{{ ufw_package }}"
+      state: present
+
+  - name: Resetting UFW firewall
+    ufw:
+      state: reset
+
+  - name: Configuring Circle-of-Trust Rules
+    ufw:
+      from_ip: "{{ item }}"
+      rule: allow
+    with_items: fail2ban_whitelisted_hosts
+    
+    
+  - name: Configuring Remote-User Rules
+    ufw:
+      from_ip: "{{ item }}"
+      rule: allow
+    with_items: remote_users
+        
+  - name: Configuring Custom port/protocol/network rules
+    ufw:
+      policy: "{{ item.policy | default(omit) }}"
+      port: "{{ item.port | default(omit) }}"
+      proto: "{{ item.proto | default(omit) }}"
+      rule: "{{ item.rule | default('allow') }}"
+      state: "{{ item.state | default(omit) }}"
+      to_ip: "{{ item.to_ip | default(omit) }}"
+      to_port: "{{ item.to_port | default(omit) }}"
+      delete: "{{ item.delete | default(omit) }}"
+      direction: "{{ item.direction | default(omit) }}"
+      from_ip: "{{ item.from_ip | default(omit) }}"
+      from_port: "{{ item.from_port | default(omit) }}"
+      insert: "{{ item.insert | default(omit) }}"
+      interface: "{{ item.interface | default(omit) }}"
+      log: "{{ item.log | default(omit) }}"
+      logging: "{{ item.logging | default(omit) }}"
+      name: "{{ item.name | default(omit) }}"
+    with_items: ufw_rules
+
+  - name: Configuring Custom application rules
+    ufw:
+      name: "{{ item.name }}"
+      rule: "{{ item.rule if item.rule is defined else 'allow' }}"
+    with_items: ufw_applications
+
+  - name: Configuring UFW itself
+    template:
+      src: ../../templates/etc-default-ufw.j2
+      dest: /etc/default/ufw
+      owner: root
+      group: root
+      mode: 0644
+    notify: reload ufw
+
+  - name: Configuring service State {{ ufw_state }}
+    ufw:
+      state: "{{ ufw_state }}"
+      logging: "{{ ufw_logging }}"
+
+  handlers:
+    - include: ../../handlers/main.yml
