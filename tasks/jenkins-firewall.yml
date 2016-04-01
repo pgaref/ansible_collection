@@ -6,6 +6,7 @@
   vars_files:
     - ../vars/secret
     - ../defaults/main.yml
+  include_vars:
     - {{ remote_users }}
 
   tasks:
