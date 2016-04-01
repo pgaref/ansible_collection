@@ -1,0 +1,8 @@
+---
+
+- name: restart ufw
+  service: name=ufw
+           state=restarted
+           
+- name: reload ufw
+  command: ufw reload
