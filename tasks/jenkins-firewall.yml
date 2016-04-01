@@ -1,8 +1,8 @@
 ---
 - hosts: mathservers
   user: ansible
-  become: yes
-  become_method: sudo
+  sudo: yes
+  sudo_user: root
   vars_files:
     - ../vars/secret
     - ../defaults/main.yml
