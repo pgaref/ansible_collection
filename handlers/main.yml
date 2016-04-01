@@ -5,3 +5,6 @@
            
 - name: reload ufw
   command: ufw reload
+  
+- name: restart fail2ban
+  service: name=fail2ban state=restarted
