@@ -6,7 +6,7 @@
   vars_files:
     - ../vars/secret
     - ../defaults/main.yml
-    - remote_users.yml
+    - {{ remote_users }}
 
   tasks:
   - name: Installing UFW package (APT)
