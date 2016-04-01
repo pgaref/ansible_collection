@@ -42,4 +42,4 @@ ufw_rules:
      - { from_ip: '89.197.15.215', rule: allow }
 # list of profiles located in /etc/ufw/applications.d
 ufw_applications:
-     - { name: "IMAP", rule: allow }
+     - { name: "OpenSSH", rule: allow }
