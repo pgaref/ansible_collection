@@ -20,7 +20,7 @@
 
   - name: Configuring Circle-of-Trust Rules
     ufw:
-      from_ip: "{{ item.name }}"
+      from_ip: "{{ item }}"
       rule: allow
     with_items: fail2ban_whitelisted_hosts
     
