@@ -21,8 +21,8 @@
   tasks:
 
   - name: "Adding new user" 
-    user: name="{{user_name}}" comment="{{description_user}}" createhome="yes" shell="/bin/bash" groups=adm
-#    user: name="{{user_name}}" comment="{{description_user}}" password="{{user_password}}" createhome="yes" shell="/bin/bash"
+    user: name="{{user_name}}" comment="{{description_user}}" createhome="yes" shell="/bin/bash"
+#    user: name="{{user_name}}" comment="{{description_user}}" password="{{user_password}}" createhome="yes" shell="/bin/bash"  groups=admin,adm
     notify:
     - restart ssh
   - name: "Giving sudo access"
