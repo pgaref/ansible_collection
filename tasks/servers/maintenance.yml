@@ -1,0 +1,47 @@
+---
+- hosts: mathservers
+  user: ansible
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../../vars/secret
+    - ../../defaults/main.yml
+  vars:
+    LOGWATCH_EMAIL: panagiotis@***REMOVED***.co
+    ubuntu_mandatory_packages:
+      - ufw
+      - fail2ban
+      - unattended-upgrades
+      - logwatch
+
+  tasks:
+  - name: Update APT package cache
+    apt: update_cache=yes cache_valid_time=3600
+
+  - name: Upgrade APT to the latest packages
+    apt: upgrade=safe
+
+  - name: Install required packages
+    apt: state=installed pkg={{ item }}
+    with_items: ubuntu_mandatory_packages
+
+  - name: Adjust APT update intervals
+    copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic
+
+
+  - name: Disallow root SSH access
+    lineinfile: dest=/etc/ssh/sshd_config
+              regexp="^PermitRootLogin"
+              line="PermitRootLogin no"
+              state=present
+    notify: restart ssh
+
+
+  - name: Email log summary daily
+    lineinfile: dest=/etc/cron.daily/00logwatch
+              regexp="^/usr/sbin/logwatch"
+              line="/usr/sbin/logwatch --output mail --mailto {{ LOGWATCH_EMAIL }} --detail high"
+              state=present create=yes
+
+  handlers:
+    - include: ../../handlers/main.yml
