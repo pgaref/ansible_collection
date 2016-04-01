@@ -34,9 +34,7 @@
     command: apt-get -y autoremove
     when: "'packages will be REMOVED' in check_autoremove.stdout"
 
-  - name: Adjust APT update intervals
-    copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic
-
+#   Coming in 2.1  => apt: autoremove=yes
 
   - name: Disallow root SSH access
     lineinfile: dest=/etc/ssh/sshd_config
