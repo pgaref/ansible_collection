@@ -1,6 +1,0 @@
----
-
-#users who get BANNED from SSH access to these machines
-sshusers:
-  - name: sebastian
-    authorized: false
