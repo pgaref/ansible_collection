@@ -17,7 +17,24 @@ fail2ban_pidfile: null
 fail2ban_bantime: '86400'
 fail2ban_maxretry: '4'
 fail2ban_destemail: 'panagiotis@***REMOVED***.co'
-fail2ban_whitelisted_hosts: [109.200.25.210, 109.200.5.170, 88.150.187.82, 149.3.133.186, 31.3.234.74, 176.227.210.186, 31.3.239.146, 37.220.6.138, 176.227.211.162, 81.94.193.210, 37.220.20.58 89.197.15.215]
+# These Hosts form the so-called circle of trust 
+# TODO: Find a way to use the same hosts as ufw_rules
+fail2ban_whitelisted_hosts: [
+        # db{01:08} and math{01:03} respectively
+        109.200.25.210,
+        109.200.5.170,
+        88.150.187.82,
+        149.3.133.186,
+        31.3.234.74,
+        176.227.210.186,
+        31.3.239.146,
+        37.220.6.138,
+        176.227.211.162,
+        81.94.193.210,
+        37.220.20.58,
+        # ***REMOVED*** Office
+        89.197.15.215
+]
 
 
 
@@ -43,21 +60,6 @@ ufw_logging: "off"
 #   - { name: OpenSSH [rule: allow] }
 ufw_rules:
      - { port: 22, rule: allow }
-     # db{01:08} and math{01:03} respectively
-     - { from_ip: '127.0.0.1/24', rule: allow }
-     - { from_ip: '109.200.25.210', rule: allow }
-     - { from_ip: '109.200.5.170', rule: allow }
-     - { from_ip: '88.150.187.82', rule: allow }
-     - { from_ip: '149.3.133.186', rule: allow }
-     - { from_ip: '31.3.234.74', rule: allow }
-     - { from_ip: '176.227.210.186', rule: allow }
-     - { from_ip: '31.3.239.146', rule: allow }
-     - { from_ip: '37.220.6.138', rule: allow }
-     - { from_ip: '176.227.211.162', rule: allow }
-     - { from_ip: '81.94.193.210', rule: allow }
-     - { from_ip: '37.220.20.58', rule: allow }
-     # ***REMOVED*** Office
-     - { from_ip: '89.197.15.215', rule: allow }
 # list of profiles located in /etc/ufw/applications.d
 ufw_applications:
      - { name: "OpenSSH", rule: allow }

@@ -17,6 +17,12 @@
     ufw:
       state: reset
 
+  - name: Configuring Circle-of-Trust Rules
+    ufw:
+      from_ip: "{{ item }}"
+      rule: allow
+    with_items: fail2ban_whitelisted_hosts
+    
   - name: Configuring Custom port/protocol/network rules
     ufw:
       policy: "{{ item.policy | default(omit) }}"
