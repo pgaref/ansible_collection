@@ -22,7 +22,7 @@
     action: copy content="" dest=/home/admin/.ssh/authorized_keys force=yes backup=yes
     
   - name: Adding Authorised SSH keys to Admin user
-    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
+    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/files/user_keys/'+item.name) }}" state=present
     with_items: sshusers
     when: item.authorized == true
     notify:
@@ -32,7 +32,7 @@
     action: copy content="" dest=/home/strata_root/.ssh/authorized_keys force=yes backup=yes
         
   - name: Adding Strata_Root SSH keys
-    authorized_key: user=strata_root key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
+    authorized_key: user=strata_root key="{{ lookup('file', '/opt/ansible_playbooks/files/user_keys/'+item.name) }}" state=present
     with_items: sshusers
     when: item.root == true
     notify:
@@ -42,7 +42,7 @@
     action: copy content="" dest=/home/spark/.ssh/authorized_keys force=yes backup=yes
     
   - name: Adding Spark SSH keys
-    authorized_key: user=spark key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
+    authorized_key: user=spark key="{{ lookup('file', '/opt/ansible_playbooks/files/user_keys/'+item.name) }}" state=present
     with_items: sshusers
     when: item.spark == true
     notify:
@@ -50,7 +50,7 @@
     
     
   - name: Removing Unauthorised SSH keys
-    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=absent
+    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/files/user_keys/'+item.name) }}" state=absent
     with_items: sshusers
     when: item.authorized == false
     notify:
