@@ -114,13 +114,13 @@ sshusers:
     authorized: true
     spark: false
     root: false
-
- - name: tony
+    
+  - name: tony
     authorized: true
     spark: true
     root: false
- 
- - name: tomspooner
+    
+  - name: tomspooner
     authorized: true
     spark: false
     root: false
