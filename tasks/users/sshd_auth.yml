@@ -21,27 +21,41 @@
   - name: Cleaning Admin user existing SSH keys
     action: copy content="" dest=/home/admin/.ssh/authorized_keys force=yes backup=yes
     
-#  - name: Adding Authorised SSH keys to Admin user
-#    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
-#    with_items: sshusers
-#    when: item.authorized == true
-#    notify:
-#    - restart ssh
-    
-#  - name: Adding Strata_Root SSH keys
-#    authorized_key: user=strata_root key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
-#    with_items: sshusers
-#    when: item.root == true
-#    notify:
-#    - restart ssh
-    
-#  - name: Removing Unauthorised SSH keys
-#    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=absent
-#    with_items: sshusers
-#    when: item.authorized == false
-#    notify:
-#    - restart ssh    
+  - name: Adding Authorised SSH keys to Admin user
+    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
+    with_items: sshusers
+    when: item.authorized == true
+    notify:
+    - restart ssh
 
-#  handlers:
-#    - name: restart ssh
-#      service: name=ssh state=restarted
+  - name: Cleaning Strata_Root user existing SSH keys
+    action: copy content="" dest=/home/strata_root/.ssh/authorized_keys force=yes backup=yes
+        
+  - name: Adding Strata_Root SSH keys
+    authorized_key: user=strata_root key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
+    with_items: sshusers
+    when: item.root == true
+    notify:
+    - restart ssh
+    
+  - name: Cleaning Spark user existing SSH keys
+    action: copy content="" dest=/home/spark/.ssh/authorized_keys force=yes backup=yes
+    
+  - name: Adding Spark SSH keys
+    authorized_key: user=spark key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
+    with_items: sshusers
+    when: item.spark == true
+    notify:
+    - restart ssh    
+    
+    
+  - name: Removing Unauthorised SSH keys
+    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=absent
+    with_items: sshusers
+    when: item.authorized == false
+    notify:
+    - restart ssh
+
+  handlers:
+    - name: restart ssh
+      service: name=ssh state=restarted
