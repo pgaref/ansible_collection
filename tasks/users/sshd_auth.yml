@@ -46,8 +46,7 @@
     with_items: sshusers
     when: item.spark == true
     notify:
-    - restart ssh    
-    
+    - restart ssh
     
   - name: Removing Unauthorised SSH keys
     authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/files/user_keys/'+item.name) }}" state=absent
