@@ -25,6 +25,15 @@
     apt: state=installed pkg={{ item }}
     with_items: ubuntu_mandatory_packages
 
+  - name: Check if packages need to be autoremoved
+    command: apt-get --dry-run autoremove
+    register: check_autoremove
+    changed_when: False
+
+  - name: Autoremove unused packages
+    command: apt-get -y autoremove
+    when: "'packages will be REMOVED' in check_autoremove.stdout"
+
   - name: Adjust APT update intervals
     copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic
 
