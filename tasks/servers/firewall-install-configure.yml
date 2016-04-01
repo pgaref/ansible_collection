@@ -6,6 +6,7 @@
   vars_files:
     - ../../vars/secret
     - ../../defaults/main.yml
+    - ../../handlers/main.yml
 
   tasks:
   - name: Installing UFW package
