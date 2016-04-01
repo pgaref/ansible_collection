@@ -6,8 +6,7 @@
   vars_files:
     - ../vars/secret
     - ../defaults/main.yml
-  include_vars:
-    - "{{ remote_users }}"
+    - /home/jenkins/jenkins_fw_remote_users.yml
 
   tasks:
   - name: Installing UFW package (APT)
