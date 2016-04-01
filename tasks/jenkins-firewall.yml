@@ -4,8 +4,8 @@
   become: yes
   become_method: sudo
   vars_files:
-    - ../../vars/secret
-    - ../../defaults/main.yml
+    - ../vars/secret
+    - ../defaults/main.yml
     - remote_users.yml
 
   tasks:
@@ -59,7 +59,7 @@
 
   - name: Configuring UFW itself
     template:
-      src: ../../templates/etc-default-ufw.j2
+      src: ../templates/etc-default-ufw.j2
       dest: /etc/default/ufw
       owner: root
       group: root
@@ -72,4 +72,4 @@
       logging: "{{ ufw_logging }}"
 
   handlers:
-    - include: ../../handlers/main.yml
+    - include: ../handlers/main.yml
