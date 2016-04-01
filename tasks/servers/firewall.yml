@@ -8,7 +8,7 @@
     - ../../defaults/main.yml
 
   tasks:
-  - name: Installing UFW package
+  - name: Installing UFW package (APT)
     apt:
       pkg: "{{ ufw_package }}"
       state: present
