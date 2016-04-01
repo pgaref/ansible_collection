@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: mathservers
   user: ansible
   sudo: yes
   sudo_user: root
@@ -19,7 +19,7 @@
     with_items: sshusers
 
   - name: Cleaning Admin user existing SSH keys
-    action: file path=/home/admin/.ssh/authorized_keys state=touch 
+    action: copy content="" dest=/home/admin/.ssh/authorized_keys force=yes backup=yes
     
 #  - name: Adding Authorised SSH keys to Admin user
 #    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
