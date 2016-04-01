@@ -1,0 +1,47 @@
+---
+- hosts: all
+  user: ansible
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../../vars/secret
+    - ../../vars/ssh_users.yml
+
+  tasks:
+  - name: create key directory
+    action: file path=/opt/ssh/authorized_keys state=directory
+      owner=0 group=0 mode=0755
+
+  - name: upload All user keys
+    action: copy src=/opt/ansible_playbooks/user_keys/{{ item.name }}
+      dest=/opt/ssh/authorized_keys
+      owner=0 group=0 mode=644
+    with_items: sshusers
+
+  - name: Cleaning Admin user existing SSH keys
+    action: file path=/home/admin/.ssh/authorized_keys state=touch 
+    
+#  - name: Adding Authorised SSH keys to Admin user
+#    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
+#    with_items: sshusers
+#    when: item.authorized == true
+#    notify:
+#    - restart ssh
+    
+#  - name: Adding Strata_Root SSH keys
+#    authorized_key: user=strata_root key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=present
+#    with_items: sshusers
+#    when: item.root == true
+#    notify:
+#    - restart ssh
+    
+#  - name: Removing Unauthorised SSH keys
+#    authorized_key: user=admin key="{{ lookup('file', '/opt/ansible_playbooks/user_keys/'+item.name) }}" state=absent
+#    with_items: sshusers
+#    when: item.authorized == false
+#    notify:
+#    - restart ssh    
+
+#  handlers:
+#    - name: restart ssh
+#      service: name=ssh state=restarted
