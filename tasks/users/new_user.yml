@@ -21,7 +21,7 @@
   tasks:
 
   - name: "Adding new user" 
-    user: name="{{user_name}}" comment="{{description_user}}" createhome="yes" shell="/bin/bash" groups=adm,hadoop,hdfs
+    user: name="{{user_name}}" comment="{{description_user}}" createhome="yes" shell="/bin/bash" groups=adm,hadoop
 #    user: name="{{user_name}}" comment="{{description_user}}" password="{{user_password}}" createhome="yes" shell="/bin/bash"
     notify:
     - restart ssh
