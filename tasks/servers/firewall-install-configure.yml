@@ -6,6 +6,7 @@
   vars_files:
     - ../../vars/secret
     - ../../defaults/main.yml
+    - ../../templates/etc-default-ufw.j2
 
   tasks:
   - name: Installing UFW package
