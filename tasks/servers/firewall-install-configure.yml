@@ -6,7 +6,6 @@
   vars_files:
     - ../../vars/secret
     - ../../defaults/main.yml
-    - ../../handlers/main.yml
 
   tasks:
   - name: Installing UFW package
@@ -57,3 +56,6 @@
     ufw:
       state: "{{ ufw_state }}"
       logging: "{{ ufw_logging }}"
+
+  handlers:
+    - include: ../../handlers/main.yml
