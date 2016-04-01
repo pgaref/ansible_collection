@@ -6,7 +6,7 @@
   vars_files:
     - ../vars/secret
     - ../defaults/main.yml
-    - "{{ remote_users }}"
+    - "{{ /home/ansible/remote_users.yml }}"
 
   tasks:
   - name: Installing UFW package (APT)
