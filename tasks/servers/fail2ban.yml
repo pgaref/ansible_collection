@@ -1,0 +1,23 @@
+---
+- hosts: mathservers
+  user: ansible
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - ../../vars/secret
+    - ../../defaults/main.yml
+
+  tasks:
+    - name: Installing fail2ban Package (APT)
+      apt: pkg=fail2ban state=present
+
+    - name: Configuring fail2ban
+      template: src=../../templates/fail2ban-default.j2 dest=/etc/fail2ban/fail2ban.local
+      notify: restart fail2ban
+
+    - name: Configuring fail2ban jail rules
+      template: src=../../templates/fail2ban-jails-default.j2 dest=/etc/fail2ban/jail.local
+      notify: restart fail2ban
+
+  handlers:
+    - include: ../../handlers/main.yml
