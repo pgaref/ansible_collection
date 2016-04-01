@@ -1,8 +1,8 @@
 ---
 - hosts: dbservers
   user: ansible
-  sudo: yes
-  sudo_user: root
+  become: yes
+  become_method: sudo
   vars_files:
     - ../../vars/secret
     - ../../vars/main.yml
