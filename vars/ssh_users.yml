@@ -115,7 +115,12 @@ sshusers:
     spark: false
     root: false
 
-  - name: tomspooner
+ - name: tony
+    authorized: true
+    spark: true
+    root: false
+ 
+ - name: tomspooner
     authorized: true
     spark: false
     root: false
