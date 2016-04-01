@@ -1,10 +1,10 @@
 ---
-- name: restart ufw
+- name: Restarting ufw
   service: name=ufw
            state=restarted
            
-- name: reload ufw
+- name: Reloading ufw
   command: ufw reload
   
-- name: restart fail2ban
+- name: Restarting fail2ban
   service: name=fail2ban state=restarted
