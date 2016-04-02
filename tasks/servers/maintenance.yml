@@ -7,7 +7,7 @@
     - ../../vars/secret
     - ../../defaults/main.yml
   vars:
-    LOGWATCH_EMAIL: panagiotis@***REMOVED***.co
+    LOGWATCH_EMAIL: {{ fail2ban_destemail }}
     ubuntu_mandatory_packages:
       - ufw
       - fail2ban

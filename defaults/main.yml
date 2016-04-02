@@ -16,7 +16,7 @@ fail2ban_pidfile: null
 # Jail configuration
 fail2ban_bantime: '86400'
 fail2ban_maxretry: '4'
-fail2ban_destemail: 'panagiotis@***REMOVED***.co'
+fail2ban_destemail: 'sysadmin@***REMOVED***.co'
 # These Hosts form the so-called circle of trust 
 # TODO: Find a way to use the same hosts as ufw_rules
 fail2ban_whitelisted_hosts: [
