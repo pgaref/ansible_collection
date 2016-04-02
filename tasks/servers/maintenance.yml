@@ -7,7 +7,6 @@
     - ../../vars/secret
     - ../../defaults/main.yml
   vars:
-    LOGWATCH_EMAIL: {{ fail2ban_destemail }}
     ubuntu_mandatory_packages:
       - ufw
       - fail2ban
@@ -47,7 +46,7 @@
   - name: Email log summary daily
     lineinfile: dest=/etc/cron.daily/00logwatch
               regexp="^/usr/sbin/logwatch"
-              line="/usr/sbin/logwatch --output mail --mailto {{ LOGWATCH_EMAIL }} --detail high"
+              line="/usr/sbin/logwatch --output mail --mailto {{ fail2ban_destemail }} --detail high"
               state=present create=yes
 
   handlers:
