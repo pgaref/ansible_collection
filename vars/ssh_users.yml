@@ -5,6 +5,11 @@
 # root: give access as root user ( ***REMOVED***_root )
 sshusers:
 
+  - name: ansible
+    authorized: true
+    spark: false
+    root: false
+    
   - name: mary
     authorized: true
     spark: true
