@@ -21,8 +21,8 @@ mesos_ulimit: "-n 8192"
 mesos_work_dir: "/var/mesos"
 mesos_quorum: "1"
 zookeeper_client_port: "2181"
-zookeeper_hostnames: "{{ mesos_hostname }}:{{ zookeeper_client_port }}"
-mesos_zookeeper_masters: "zk://{{ zookeeper_hostnames }}/mesos"
+zookeeper_hostnames: "db02.***REMOVED***.co:{{ zookeeper_client_port }},db03.***REMOVED***.co:{{ zookeeper_client_port }},db07.***REMOVED***.co:{{ zookeeper_client_port }}"
+mesos_zookeeper_masters: "zk://db02.***REMOVED***.co:{{ zookeeper_client_port }}/mesos"
 mesos_owner: root
 mesos_group: root
 
