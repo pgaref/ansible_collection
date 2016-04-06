@@ -5,37 +5,35 @@
     hosts: mesos
     gather_facts: yes
     user: ansible
-    become: yes
-    become_method: sudo
     vars_files:
       - vars/secret
     vars:
         zookeeper_hostnames: "{{ groups.zookeeper_hosts | join(':' + zookeeper_client_port + ',') }}:{{ zookeeper_client_port }}"
         
-  - debug: msg="System Zookeeper hostnames: {{ zookeeper_hostnames }} "
+  - debug: msg="System Zookeeper hostnames {{ zookeeper_hostnames }} "
   
   # Play to install only "primaries" mesos.
-  - name: Mesos Primaries
-    hosts: mesos-primaries
-    user: ansible
-    become: yes
-    become_method: sudo
-    vars_files:
-      - vars/secret
+#  - name: Mesos Primaries
+#    hosts: mesos-primaries
+#    user: ansible
+#    become: yes
+#    become_method: sudo
+#    vars_files:
+#      - vars/secret
 
-    gather_facts: no
-    roles:
-       - { role: ansible-mesos, mesos_install_mode: master }
+#    gather_facts: no
+#    roles:
+#       - { role: ansible-mesos, mesos_install_mode: master }
 
-  # Play to install only "workers" mesos.
-  - name: Mesos Workers
-    hosts: mesos-workers
-    user: ansible
-    become: yes
-    become_method: sudo
-    vars_files:
-      - vars/secret
+#  # Play to install only "workers" mesos.
+#  - name: Mesos Workers
+#    hosts: mesos-workers
+#    user: ansible
+#    become: yes
+#    become_method: sudo
+#    vars_files:
+#      - vars/secret
 
-    gather_facts: no
-    roles:
-       - { role: ansible-mesos, mesos_install_mode: slave }
+#    gather_facts: no
+#    roles:
+#       - { role: ansible-mesos, mesos_install_mode: slave }
