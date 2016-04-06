@@ -1,19 +1,23 @@
 ---
+#########################
+# Golang
+# https://golang.org/
+#########################
+
 go_tarball: "go1.6.linux-amd64.tar.gz"
 go_tarball_checksum: "5470eac05d273c74ff8bac7bef5bad0b5abbd1c4052efbdbc8db45332e836b0b"
 go_version_target: "go version go1.6 linux/amd64"
 
 
-
 #########################
 # Fail2ban
 #########################
-# Global configuration
+
 fail2ban_loglevel: 3
 fail2ban_logtarget: /var/log/fail2ban.log
 fail2ban_socket: /var/run/fail2ban/fail2ban.sock
 fail2ban_pidfile: null
-# Jail configuration
+# Jail configuration - 24 Hours Ban
 fail2ban_bantime: '86400'
 fail2ban_maxretry: '4'
 fail2ban_destemail: 'panagiotis@***REMOVED***.co'
@@ -47,12 +51,11 @@ fail2ban_whitelisted_hosts: [
         46.137.118.5
 ]
 
-
-
 #########################
 # UFW Firewall
 # http://www.ansibleworks.com/docs/playbooks_variables.html#id26
 #########################
+
 ufw_package: ufw
 # list of rules
 # /etc/defaut/ufw settings
