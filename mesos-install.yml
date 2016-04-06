@@ -11,7 +11,8 @@
         zookeeper_hostnames: "{{ groups.zookeeper_hosts | join(':' + zookeeper_client_port + ',') }}:{{ zookeeper_client_port }}"
         
   - name: Print mosh version
-    debug: "msg=System Zookeeper hostnames ' {{ zookeeper_hostnames }} '"
+    debug:
+       msg: "msg=System Zookeeper hostnames '{{ zookeeper_hostnames }}'"
   
   # Play to install only "primaries" mesos.
 #  - name: Mesos Primaries
