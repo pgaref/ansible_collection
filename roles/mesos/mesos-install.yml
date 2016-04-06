@@ -1,33 +1,38 @@
 ---
-- hosts: all
-  user: ansible
-  become: yes
-  become_method: sudo
-  vars_files:
-    - ../../vars/secret
-    
-  tasks:
-    # Playbook file "playbooks/mesos/install.yml"
-
-    # Empty play that only gather facts once and set required variables.
-    - name: Mesos
-      hosts: mesos
-      gather_facts: yes
-      vars:
+  # Playbook file "playbooks/mesos/install.yml"
+  # Empty play that only gather facts once and set required variables.
+  - name: Mesos
+    hosts: mesos
+    gather_facts: yes
+    user: ansible
+    become: yes
+    become_method: sudo
+    vars_files:
+      - ../../vars/secret
+    vars:
         zookeeper_hostnames: "{{ groups.zookeeper_hosts | join(':' + zookeeper_client_port + ',') }}:{{ zookeeper_client_port }}"
+  # Play to install only "primaries" mesos.
+  - name: Mesos Primaries
+    hosts: mesos-primaries
+    user: ansible
+    become: yes
+    become_method: sudo
+    vars_files:
+      - ../../vars/secret
 
-    # Play to install only "primaries" mesos.
-    - name: Mesos Primaries
-      hosts: mesos-primaries
-      sudo: yes
-      gather_facts: no
-      roles:
-        - { role: ansible-mesos, mesos_install_mode: master }
+    gather_facts: no
+    roles:
+       - { role: ansible-mesos, mesos_install_mode: master }
 
-    # Play to install only "workers" mesos.
-    - name: Mesos Workers
-      hosts: mesos-workers
-      sudo: yes
-      gather_facts: no
-      roles:
-        - { role: ansible-mesos, mesos_install_mode: slave }
+  # Play to install only "workers" mesos.
+  - name: Mesos Workers
+    hosts: mesos-workers
+    user: ansible
+    become: yes
+    become_method: sudo
+    vars_files:
+      - ../../vars/secret
+
+    gather_facts: no
+    roles:
+       - { role: ansible-mesos, mesos_install_mode: slave }
