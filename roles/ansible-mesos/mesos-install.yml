@@ -10,7 +10,7 @@
     vars_files:
       - ../../vars/secret
     vars:
-        zookeeper_hostnames: "{{ groups.zookeeper_hosts | join(':' + zookeeper_client_port + ',') }}:{{ zookeeper_client_port }}"
+        zookeeper_hostnames: "{{ zookeeper_hostnames }}"
      
   # Play to install only "primaries" mesos.
   - name: Mesos Primaries
