@@ -12,6 +12,9 @@
     vars:
         zookeeper_hostnames: "{{ groups.zookeeper_hosts | join(':' + zookeeper_client_port + ',') }}:{{ zookeeper_client_port }}"
   
+  - name: Pre Task
+     shell: echo 'Hello'
+     
   # Play to install only "primaries" mesos.
   - name: Mesos Primaries
     hosts: mesos-primaries
@@ -23,7 +26,7 @@
 
     gather_facts: no
     roles:
-       - { role: ansible-mesos, mesos_install_mode: master }
+       - { role: '../ansible-mesos', mesos_install_mode: master }
 
   # Play to install only "workers" mesos.
   - name: Mesos Workers
@@ -36,4 +39,4 @@
 
     gather_facts: no
     roles:
-       - { role: ansible-mesos, mesos_install_mode: slave }
+       - { role: '../ansible-mesos', mesos_install_mode: slave }
