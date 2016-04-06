@@ -4,13 +4,11 @@ mesos-primaries
 mesos-workers
 
 [mesos-primaries]
-db01.***REMOVED***.co
-#math01.***REMOVED***.co
+db02.***REMOVED***.co
 
 [mesos-workers]
-db01.***REMOVED***.co
-#db[02:08].***REMOVED***.co
-#math[01:03].***REMOVED***.co
+db[02:08].***REMOVED***.co
+math[01:03].***REMOVED***.co
 
 [zookeeper_hosts]
 db02.***REMOVED***.co
