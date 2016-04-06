@@ -10,7 +10,7 @@
     ubuntu_mandatory_packages:
       - ufw
       - fail2ban
-      - unattended-upgrades
+#      - unattended-upgrades
       - logwatch
 
   tasks:
