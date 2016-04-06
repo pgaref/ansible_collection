@@ -53,3 +53,10 @@ You can use ansible ad-hock commands
 * ansible local -m apt -a "name=libssl-dev state=present" -u admin -k --sudo : Ensure a package is installed, but don’t update it
 * ansible databases -s -m apt -a "name=libffi-dev state=present" -k -u admin
 * ansible databases -m shell -a 'sudo apt-get update; sudo pip install -U pip setuptools wheel virtualenv; echo 'DONE'' -k -u admin --sudo
+
+
+### Installing a Role
+
+For example mesos cluster - machine roles are defined under roles/ansible-mesos/inventory
+
+* ansible-playbook roles/ansible-mesos/mesos-install.yml -i roles/ansible-mesos/inventory/ -s -vvv --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo
