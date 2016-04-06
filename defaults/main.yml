@@ -34,6 +34,17 @@ fail2ban_whitelisted_hosts: [
         37.220.20.58,
         # ***REMOVED*** Office
         89.197.15.215
+        #SpoCoSy1-7
+        79.125.109.208
+        79.125.117.234
+        79.125.117.129
+        79.125.119.58
+        79.125.119.88
+        46.51.190.90
+        #SpoCoSyOdds1-3
+        79.125.22.169
+        54.247.122.143
+        46.137.118.5
 ]
 
 
@@ -60,6 +71,9 @@ ufw_logging: "off"
 #   - { name: OpenSSH [rule: allow] }
 ufw_rules:
      - { port: 22, rule: allow }
+     - { port: 80, rule: allow }
+     - { port: 443, rule: allow }
+     - { port: 8080, rule: allow }
 # list of profiles located in /etc/ufw/applications.d
 ufw_applications:
      - { name: "OpenSSH", rule: allow }
