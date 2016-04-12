@@ -5,3 +5,5 @@ export MESOS_CONTAINERIZERS="{{ mesos_containerizers }}"
 export MESOS_EXECUTOR_REGISTRATION_TIMEOUT="{{ mesos_executor_timeout }}"
 export MESOS_PORT="{{ mesos_slave_port }}"
 export MESOS_WORK_DIR="{{ mesos_work_dir }}"
+# Fixes cgroup-freezer issue: https://issues.apache.org/jira/browse/MESOS-3793
+export MESOS_LAUNCHER=posix
