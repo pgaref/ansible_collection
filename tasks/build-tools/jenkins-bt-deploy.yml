@@ -34,19 +34,19 @@
           update=yes
           accept_hostkey=yes
           key_file=/home/admin/.ansible_playbooks/keys/id_rsa
-  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/launcher.sh dest=/usr/bin/***REMOVED***-launcher.sh
+  - file: src=/opt/***REMOVED***-build-tools/scripts/launcher.sh dest=/usr/bin/***REMOVED***-launcher.sh
           owner=root
           group=root
           state=link
-  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/builder.sh dest=/usr/bin/***REMOVED***-builder.sh
+  - file: src=/opt/***REMOVED***-build-tools/scripts/builder.sh dest=/usr/bin/***REMOVED***-builder.sh
           owner=root
           group=root
           state=link
-  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/releaser.sh dest=/usr/bin/***REMOVED***-releaser.sh
+  - file: src=/opt/***REMOVED***-build-tools/scripts/releaser.sh dest=/usr/bin/***REMOVED***-releaser.sh
           owner=root
           group=root
           state=link
-  - file: src=/opt/***REMOVED***-build-tools/***REMOVED***/golang-builder.sh dest=/usr/bin/***REMOVED***-golang-builder.sh
+  - file: src=/opt/***REMOVED***-build-tools/scripts/golang-builder.sh dest=/usr/bin/***REMOVED***-golang-builder.sh
           owner=root
           group=root
           state=link
