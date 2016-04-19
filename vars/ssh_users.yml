@@ -15,6 +15,11 @@ sshusers:
     spark: true
     root: true
 
+  - name: kostasm
+    authorized: true
+    spark: true
+    root: false
+
   - name: kostasc
     authorized: true
     spark: true
