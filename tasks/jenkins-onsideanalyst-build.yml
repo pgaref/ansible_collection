@@ -86,7 +86,7 @@
     become: yes
     become_user: admin
   - name: Executing grunt deploy under onsideanalyst
-    shell: cd /opt/onsideanalyst && grunt deploy
+    shell: cd /opt/onsideanalyst && nvm use 5.0.0 && grunt deploy --force
     become: yes
     become_user: root
 
