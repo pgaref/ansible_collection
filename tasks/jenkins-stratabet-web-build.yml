@@ -153,10 +153,10 @@
     ## 
     # Stratabet Web dependencies
     ##
-  - name: Executing npm install Bower and Gulp under stratabet
-    shell: cd /opt/stratabet/ && npm cache clean -f && npm install -g n && sudo n stable executable=/bin/bash    
-  - name: Executing npm install Bower and Gulp under stratabet
-    shell: cd /opt/stratabet/ && npm install -g bower && npm install -g gulp executable=/bin/bash
+    #- name: Executing npm install Bower and Gulp under stratabet
+    #  shell: cd /opt/stratabet/ && npm cache clean -f && npm install -g n && sudo n stable executable=/bin/bash    
+    #- name: Executing npm install Bower and Gulp under stratabet
+    #  shell: cd /opt/stratabet/ && npm install -g bower && npm install -g gulp executable=/bin/bash
   - name: Executing npm Install under stratabet
     shell: cd /opt/stratabet/ && npm install && bower install --allow-root executable=/bin/bash
   - command: echo "Going to build statabet in '{{ node_env }}' mode!!!"
