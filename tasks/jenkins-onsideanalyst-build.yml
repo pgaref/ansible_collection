@@ -78,7 +78,7 @@
     # Onside Analyst Web dependencies
     ##
   - name: Executing npm install under onsideanalyst
-    shell: cd /opt/onsideanalyst && npm install
+    shell: cd /opt/onsideanalyst && nvm use 5.0.0 && npm install
     become: yes
     become_user: root
   - name: Executing bower install under onsideanalyst
@@ -86,7 +86,7 @@
     become: yes
     become_user: admin
   - name: Executing grunt deploy under onsideanalyst
-    shell: cd /opt/onsideanalyst && nvm use 5.0.0 && grunt deploy --force
+    shell: cd /opt/onsideanalyst && grunt deploy --force
     become: yes
     become_user: root
 
