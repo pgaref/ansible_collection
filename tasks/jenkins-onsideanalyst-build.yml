@@ -78,7 +78,7 @@
     # Onside Analyst Web dependencies
     ##
   - name: Executing npm install under onsideanalyst
-    shell: cd /opt/onsideanalyst && nvm use 5.0.0 && npm install
+    shell: cd /opt/onsideanalyst && nvm use 5.0 && npm install
     become: yes
     become_user: root
   - name: Executing bower install under onsideanalyst
