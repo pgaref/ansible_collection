@@ -101,7 +101,7 @@ sshusers:
     root: false
     
   - name: dario
-    authorized: true
+    authorized: false
     spark: false
     root: false
     
