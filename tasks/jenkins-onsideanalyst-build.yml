@@ -84,7 +84,7 @@
   - name: Executing bower install under onsideanalyst
     shell: cd /opt/onsideanalyst && bower install --allow-root 
     become: yes
-    become_user: admin
+    become_user: root
   - name: Executing grunt deploy under onsideanalyst
     shell: cd /opt/onsideanalyst && export NVM_DIR="/root/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.11 && npm install
     become: yes
