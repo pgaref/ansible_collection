@@ -78,17 +78,17 @@
     # Onside Analyst Web dependencies
     ##
   - name: Executing npm install under onsideanalyst
-    shell: cd /opt/onsideanalyst && export NVM_DIR="/root/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.11 && npm install
+    shell: cd /opt/onsideanalyst && export NVM_DIR="~/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.10 && npm install
     become: yes
-    become_user: root
+    become_user: admin
   - name: Executing bower install under onsideanalyst
-    shell: cd /opt/onsideanalyst && bower install --allow-root 
+    shell: cd /opt/onsideanalyst && bower install
     become: yes
-    become_user: root
+    become_user: admin
   - name: Executing grunt deploy under onsideanalyst
-    shell: cd /opt/onsideanalyst && export NVM_DIR="/root/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.11 && grunt deploy
+    shell: cd /opt/onsideanalyst && export NVM_DIR="~/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.10 && grunt deploy
     become: yes
-    become_user: root
+    become_user: admin
 
   # Manage Supervisor onsideanalyst task - restart
   - name: Restart Data API supervisor Job
