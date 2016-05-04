@@ -82,7 +82,7 @@
     become: yes
     become_user: admin
   - name: Executing bower install under onsideanalyst
-    shell: cd /opt/onsideanalyst && bower install
+    shell: cd /opt/onsideanalyst && export NVM_DIR="/home/admin/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.11 && bower install
     become: yes
     become_user: admin
   - name: Executing grunt deploy under onsideanalyst
