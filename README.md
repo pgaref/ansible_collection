@@ -55,8 +55,24 @@ You can use ansible ad-hock commands
 * ansible databases -m shell -a 'sudo apt-get update; sudo pip install -U pip setuptools wheel virtualenv; echo 'DONE'' -k -u admin --sudo
 
 
+
+### Server Tasks
+
+To install and configure java8 for the cluster run:
+
+* ansible-playbook tasks/servers/java8_default.yml -s -vvv --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo
+
 ### Installing a Role
 
-For example mesos cluster - machine roles are defined under roles/ansible-mesos/inventory
+Rolles define a specific behaviour of a machines.. Currently supported roles:
+
+Mesos cluster - machine roles are defined under roles/ansible-mesos/inventory
 
 * ansible-playbook roles/ansible-mesos/mesos-install.yml -i roles/ansible-mesos/inventory/ -s -vvv --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo
+
+RabbitMQ supporting clustering and custom partioning errors handling:
+
+*  ansible-playbook roles/ansible-rabbitmq/ -i roles/ansible-rabbitmq/inventory/ -s -vvv --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo
+
+
+
