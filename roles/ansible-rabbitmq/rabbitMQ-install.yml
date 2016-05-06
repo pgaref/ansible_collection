@@ -19,6 +19,7 @@
     become_method: sudo
     vars_files:
       - ../../vars/secret
+      - defaults/main.yml
     gather_facts: yes
     roles:
        - { role: '../ansible-rabbitmq'}
