@@ -9,6 +9,7 @@
     become_method: sudo
     vars_files:
       - ../../vars/secret
+      - defaults/main.yml
      
   # Play to install only RabbitMQ
   - name: Rabbit Nodes
@@ -18,7 +19,6 @@
     become_method: sudo
     vars_files:
       - ../../vars/secret
-
     gather_facts: yes
     roles:
        - { role: '../ansible-rabbitmq'}
