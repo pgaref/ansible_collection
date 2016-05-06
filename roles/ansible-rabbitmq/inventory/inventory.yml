@@ -1,0 +1,11 @@
+# Inventory file "inventories/development/inventory.yml"
+[rabbit:children]
+rabbit-nodes
+
+[rabbit-nodes]
+db02.***REMOVED***.co
+db03.***REMOVED***.co
+
+[rabbit-dev]
+math02.***REMOVED***.co
+math03.***REMOVED***.co
