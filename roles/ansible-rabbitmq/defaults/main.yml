@@ -18,7 +18,7 @@ rabbitmq_ssl_ca_cert:
 rabbitmq_ssl_cert:
 rabbitmq_ssl_key:
 # Custom option: igore (default), autoheal, pause-minority, pause-if-all-down
-rabbitmq_cluster_partition_handling: ignore
+rabbitmq_cluster_partition_handling: autoheal
 
 rabbitmq_plugins:
   - rabbitmq_management
