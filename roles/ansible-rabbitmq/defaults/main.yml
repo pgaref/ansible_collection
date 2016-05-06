@@ -52,4 +52,4 @@ rabbitmq_users_removed:
   - guest
 
 # Use FQDN
-rabbitmq_use_longname: 'true'
+# rabbitmq_use_longname: 'true'
