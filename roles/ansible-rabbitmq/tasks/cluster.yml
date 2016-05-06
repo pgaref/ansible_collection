@@ -21,3 +21,6 @@
   shell: rabbitmqctl start_app
   tags: rabbitmq
 
+- name: Enable the plugins is installed
+  rabbitmq_plugin: names="rabbitmq_management_agent" state=enabled prefix=/usr/lib/rabbitmq
+  notify: restart rabbitmq-server
