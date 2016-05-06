@@ -1,23 +1,16 @@
 ---
-  # Playbook file "playbooks/mesos/install.yml"
+  # Playbook file "playbooks/rabbitmq/rabbitMQ-install.yml"
   # Empty play that only gather facts once and set required variables.
-  - name: Mesos
-    hosts: mesos
-    gather_facts: yes
-    user: ansible
-    become: yes
-    become_method: sudo
-    vars_files:
-      - ../../vars/secret
      
-  # Play to install only RabbitMQ
+  # Play to setup RabbitMQ role
   - name: Rabbit Nodes
     hosts: rabbit-dev
+    gather_facts: yes
     user: ansible
     become: yes
     become_method: sudo
     vars_files:
       - ../../vars/secret
-    gather_facts: yes
+    
     roles:
        - { role: '../ansible-rabbitmq'}
