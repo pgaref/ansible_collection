@@ -40,7 +40,3 @@
   notify: restart rabbitmq-server
   tags: [configuration,rabbitmq]
 
-- name: resetting rabbitmq app
-  shell: rabbitmqctl set_cluster_name "***REMOVED***_RabbitMQ"
-  tags: rabbitmq
-

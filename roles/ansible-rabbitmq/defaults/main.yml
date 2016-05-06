@@ -6,7 +6,7 @@ rabbitmq_ulimit_open_files: 65000
 rabbitmq_create_cluster: yes
 rabbitmq_cluster_master: math02
 rabbitmq_use_longname: 'false'
-rabbitmq_vhosts: [dev]
+rabbitmq_vhosts: [dev, prod]
 rabbitmq_ha_enabled: yes
 rabbitmq_ha_pattern: '.*'
 rabbitmq_ha_mode: 'all'
