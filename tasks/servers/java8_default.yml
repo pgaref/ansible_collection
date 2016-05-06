@@ -32,3 +32,17 @@
   - name: install java8
     shell: apt-get install -y oracle-java8-installer ca-certificates
     sudo: yes
+
+  - name: set java8 default
+    shell: apt-get install oracle-java8-set-default
+    sudo: yes
+
+  - name: Validate Java version
+    shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+    register: java_version
+
+  - assert:
+     that: 
+      - java_version.stdout | version_compare('1.8', '>=') 
+
+  
