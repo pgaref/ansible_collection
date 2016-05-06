@@ -32,7 +32,6 @@ rabbitmq_users:
     write_priv: .*
     tags: administrator
 
-rabbitmq_users:
   - user: pythondev
     password: pythondev777
     vhost: dev
@@ -41,7 +40,6 @@ rabbitmq_users:
     write_priv: .*
     tags: administrator
 
-rabbitmq_users:
   - user: golangdev
     password: golangdev888
     vhost: dev
