@@ -3,9 +3,9 @@
 rabbit-nodes
 
 [rabbit-nodes]
-db02.***REMOVED***.co
-db03.***REMOVED***.co
+db02
+db03
 
 [rabbit-dev]
-math02.***REMOVED***.co
-math03.***REMOVED***.co
+math02
+math03
