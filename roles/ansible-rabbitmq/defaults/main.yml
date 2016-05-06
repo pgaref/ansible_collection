@@ -4,7 +4,7 @@ rabbitmq_use_upstream_repository: true
 rabbitmq_erlang_cookie: OZJCOGOWJOZILOYREDWL
 rabbitmq_ulimit_open_files: 65000
 rabbitmq_create_cluster: yes
-rabbitmq_cluster_master: db02.***REMOVED***.co
+rabbitmq_cluster_master: math01.***REMOVED***.co
 rabbitmq_use_longname: 'false'
 rabbitmq_vhosts: [dev,]
 rabbitmq_ha_enabled: yes
