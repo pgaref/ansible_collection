@@ -17,10 +17,6 @@
   shell: rabbitmqctl join_cluster rabbit@{{ rabbitmq_cluster_master }}
   tags: rabbitmq
 
-- name: resetting rabbitmq app
-  shell: rabbitmqctl set_cluster_name "***REMOVED***_RabbitMQ"
-  tags: rabbitmq
-
 - name: start rabbitmq app
   shell: rabbitmqctl start_app
   tags: rabbitmq
