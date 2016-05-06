@@ -3,8 +3,8 @@
 rabbit-nodes
 
 [rabbit-nodes]
-db02
-db03
+db02.***REMOVED***.co
+db03.***REMOVED***.co
 
 [rabbit-dev]
 math02.***REMOVED***.co
