@@ -175,7 +175,7 @@
     
   handlers:
    - name: test all
-     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go test . ./... executable=/bin/bash
-     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api && go test . ./... executable=/bin/bash
+     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/data_api && go test $(go list ./... | grep -v /vendor/) executable=/bin/bash
+     shell: source /etc/profile.d/go-api.sh && source /etc/profile.d/go-path.sh && source /etc/profile.d/go-bin.sh && cd /opt/go/src/bitbucket.org/***REMOVED***/advantedj_api && go test $(go list ./... | grep -v /vendor/) executable=/bin/bash
      
      
