@@ -4,7 +4,7 @@
      
   # Play to setup RabbitMQ role
   - name: Rabbit Nodes
-    hosts: rabbit-dev
+    hosts: rabbit-prod
     gather_facts: yes
     user: ansible
     become: yes
