@@ -1,24 +1,35 @@
 ---
 - hosts: all
   user: ansible
+  tasks:
+      - group_by: key={{ansible_distribution}}
+
+- name: Set Time Zone
+  hosts: Ubuntu
+  user: ansible
   become: yes
   become_method: sudo
   vars_files:
     - ../../vars/secret
     - ../../defaults/main.yml
+  vars:
+  - my_zone: 'Etc/UTC'
 
   tasks:
-  - name: Set timezone variable to UTC
-    copy: content='Etc/UTC'
-          dest=/etc/timezone
-           owner=root
-           group=root
-           mode=0644
-           backup=yes
-    notify:
-      - update timezone
+    - name: check current timezone
+      shell: cat /etc/timezone
+      register: current_zone
 
-
+    - name: Set timezone variables
+      copy: content={{my_zone}}
+            dest=/etc/timezone
+            owner=root
+            group=root
+            mode=0644
+            backup=yes
+      when: current_zone.stdout != my_zone
+      notify:
+        - update timezone
   handlers:
     - name: update timezone
       command: dpkg-reconfigure --frontend noninteractive tzdata
