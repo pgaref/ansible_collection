@@ -47,32 +47,32 @@ This repository contains a number of **tasks** I found useful when managing a nu
 
 ### Playbooks
 
-- [User Management](./tasks/users/sshd_auth.yml)
+1. [User Management](./tasks/users/sshd_auth.yml)
   * **Usage:** This playbook is managing *admin*, *root* and *spark* users. The concept is that multiple users want to have access to the accounts above using their rsa keys. The playbook is reading */files/keys* folder containing all the user keys by name and [ssh_users.yml](./vars/ssh_users.yml) file which defines the users granted access to an account.
   * **Command:** ``ansible-playbook tasks/users/sshd_auth.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
   * **Configuration:** If you need to add a user just add his pub key under /files/keys and then update the [ssh_users.yml](./vars/ssh_users.yml) file. To remove a user just turn the acces flag to false and rerun the playbook
-- [Golang Install/Upgrade](./tasks/servers/golang_update.yml)
+2. [Golang Install/Upgrade](./tasks/servers/golang_update.yml)
   * **Command:** ``ansible-playbook tasks/servers/golang_update.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
   * **Configuration:** If you need to change GO version just change the go_version, go_tarball and go_tarball_checksum variables at [main.yml](./defaults/main.yml)
-- [Java 8 Setup](./tasks/servers/java8_default.yml)
+3. [Java 8 Setup](./tasks/servers/java8_default.yml)
   * **Command:** ``ansible-playbook tasks/servers/java8_default.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
-- [UTC Timezone](./tasks/servers/timezone_UTC.yml)
+4. [UTC Timezone](./tasks/servers/timezone_UTC.yml)
   * **Command:** ``ansible-playbook tasks/servers/timezone_UTC.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
-- [fail2ban](./tasks/servers/fail2ban.yml)
+5. [fail2ban](./tasks/servers/fail2ban.yml)
   * **Command:** ``ansible-playbook tasks/servers/fail2ban.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
   * **Configuration:** take a look at [main.yml](./defaults/main.yml) for email, whitelist and log path configuration
   * **Info:** This task is using a jinja to create a custom configuration
-- [UFW](./tasks/servers/firewall.yml)
+6. [UFW](./tasks/servers/firewall.yml)
   * **Command:** ``ansible-playbook tasks/servers/firewall.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
   * **Configuration:** take a look at [main.yml](./defaults/main.yml) for email and circle-of-trust configuration
   * **Info:** This task is using a jinja to create a custom ufw configuration including the blocked/allowed applications, ips and ports. For more customisation check [main.yml](./defaults/main.yml)
-- [Maintenace (Logwatch Ufw and fail2ban) ](./tasks/servers/maintenance.yml)
+7. [Maintenace (Logwatch Ufw and fail2ban) ](./tasks/servers/maintenance.yml)
   * **Command:** ``ansible-playbook tasks/servers/maintenance.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
   * **Configuration:** take a look at [main.yml](./defaults/main.yml) for fail2ban email, whitelist and more
-- [Python Launcher Dependencies](./tasks/servers/launcher_python_dependencies.yml)
+8. [Python Launcher Dependencies](./tasks/servers/launcher_python_dependencies.yml)
   * **Command:** ``ansible-playbook tasks/servers/launcher_python_dependencies.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
   * **Info:** Installs all the package dependencies needed for the interal python launcher to work. To extend the dependency list check [launcher_python_dependencies.yml](./tasks/servers/launcher_python_dependencies.yml)
-- [Build Tools Deploy](./tasks/servers/build_tools-repo-clone-update.yml)
+9. [Build Tools Deploy](./tasks/servers/build_tools-repo-clone-update.yml)
   * **Command:** ``ansible-playbook tasks/servers/build_tools-repo-clone-update.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
   * **Info:** Installs the build_tools in the machines specified and creates a symbolic link under /usr/bin for launcher and builder scripts
 
