@@ -15,7 +15,7 @@ Tasks can be automated in a language that approaches plain English, using SSH, w
 
 Ansible tasks/commands/roles are usually triggered from command line like: ** ansible-playbook roles/ansible-rabbitmq/rabbitMQ-install.yml **
 
-For convenience you could use a web interface like Semaphore which is similar to ansible Tower but it is open-source!
+For convenience, you could use a web interface like Semaphore which is similar to ansible Tower but open-source!
 
 ## Basics ##
 
@@ -23,8 +23,8 @@ TODO: Explain playbooks
 
 You can use ansible:
 * either from the command line like: **ansible-playbook semaphore_local-repo_update.yml**
-* either using the web iterface (Semaphore).
-In the second senario make sure you run semaphore local repo update task to make sure semaphore's repo (running at docker) is synchronised with the latest changes.
+* either using the web interface (Semaphore).
+In the second scenario make sure you run semaphore local repo update task to make sure semaphore's repo (running at docker) is synchronised with the latest changes.
  
 
 ## Moving a Step further ##
