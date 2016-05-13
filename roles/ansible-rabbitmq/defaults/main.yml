@@ -4,7 +4,7 @@ rabbitmq_use_upstream_repository: true
 rabbitmq_erlang_cookie: OZJCOGOWJOZILOYREDWL
 rabbitmq_ulimit_open_files: 65000
 rabbitmq_create_cluster: yes
-rabbitmq_cluster_master: math02
+rabbitmq_cluster_master: db02
 rabbitmq_use_longname: 'false'
 rabbitmq_vhosts: [dev, prod]
 rabbitmq_ha_enabled: yes
@@ -40,9 +40,25 @@ rabbitmq_users:
     write_priv: .*
     tags: administrator
 
+  - user: pythondev
+    password: pythondev777
+    vhost: prod
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    tags: administrator
+
   - user: golangdev
     password: golangdev888
     vhost: dev
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    tags: administrator
+
+  - user: golangdev
+    password: golangdev888
+    vhost: prod
     configure_priv: .*
     read_priv: .*
     write_priv: .*
