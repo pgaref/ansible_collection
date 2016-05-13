@@ -19,3 +19,8 @@ db[01:08].***REMOVED***.co
 
 [local]
 db07.***REMOVED***.co
+
+[test]
+db01. example.comansible_host=109.200.25.210 ansible_user=root
+db02. example.comansible_host=109.200.5.170 ansible_user=root
+db03. example.comansible_host=88.150.187.82 ansible_user=root
