@@ -2,13 +2,7 @@
 
 ### This is a collection of ansible playbook *tasks* and *roles* for managing efficiently a cluster of servers. ###
 
-#### Tasks include: ####
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
 ### What is Ansible? ###
-
 Ansible is a radically simple IT automation tool that makes your applications and systems easier to deploy. 
 Developers can use it internally to avoid writing scripts or custom code to deploy and update their applications.
 Tasks can be automated in a language that approaches plain English, using SSH, with no agents to install on remote systems (not a centralised solution like puppet of chef).
@@ -49,6 +43,11 @@ You can use ansible ad-hock commands
 * ansible databases -s -m apt -a "name=libffi-dev state=present" -k -u admin
 * ansible databases -m shell -a 'sudo apt-get update; sudo pip install -U pip setuptools wheel virtualenv; echo 'DONE'' -k -u admin --sudo
 
+
+#### Tasks include: ####
+* Quick summary
+* Version
+* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 
 ### Server Tasks
