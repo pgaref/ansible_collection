@@ -1,6 +1,6 @@
 # Inventory file "inventories/development/inventory.yml"
-[rabbit:children]
-rabbit-nodes
+#[rabbit:children]
+#rabbit-nodes
 
 [rabbit-prod]
 db02.***REMOVED***.co
