@@ -1,26 +1,21 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### This is a collection of ansible playbook *tasks* and *roles* for managing efficiently a cluster of servers. ###
 
-### What is this repository for? ###
-
+#### Tasks include: ####
 * Quick summary
 * Version
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+### What is Ansible? ###
 
 Ansible is a radically simple IT automation tool that makes your applications and systems easier to deploy. 
-***REMOVED*** developers can use it internally to avoid writing scripts or custom code to deploy and update their applications.
-Tasks can be utomated in a language that approaches plain English, using SSH, with no agents to install on remote systems (not a centralised solution like puppet of chef).
+Developers can use it internally to avoid writing scripts or custom code to deploy and update their applications.
+Tasks can be automated in a language that approaches plain English, using SSH, with no agents to install on remote systems (not a centralised solution like puppet of chef).
 
-For conveninience in ***REMOVED*** we are also using a web interface called Semaphore extended to fit our own needs.
-Semaphore is similar to ansible Tower but it is open-source!
-The interface is available at: (http://db07.***REMOVED***.co:80)[http://db07.***REMOVED***.co:80]
+Ansible tasks/commands/roles are usually triggered from command line like: ** ansible-playbook roles/ansible-rabbitmq/rabbitMQ-install.yml **
 
-Credentials:
-* username: panagiotis@***REMOVED***.co
-* password: CastawayLabs
+For convenience you could use a web interface like Semaphore which is similar to ansible Tower but it is open-source!
 
 ## Basics ##
 
@@ -73,6 +68,3 @@ Mesos cluster - machine roles are defined under roles/ansible-mesos/inventory
 RabbitMQ supporting clustering and custom partioning errors handling:
 
 *  ansible-playbook roles/ansible-rabbitmq/ -i roles/ansible-rabbitmq/inventory/ -s -vvv --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo
-
-
-
