@@ -75,6 +75,10 @@ This repository contains a number of **tasks** I found useful when managing a nu
 9. [Build Tools Deploy](./tasks/servers/build_tools-repo-clone-update.yml)
   * **Command:** ``ansible-playbook tasks/servers/build_tools-repo-clone-update.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
   * **Info:** Installs the build_tools in the machines specified and creates a symbolic link under /usr/bin for launcher and builder scripts
+10. [SMTP](./tasks/servers/ssmtp.yml)
+  * **Command:** ``ansible-playbook tasks/servers/ssmtp.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
+  * **Info:** Configures SSMTP server agent using credentials specified under [main.yml](./defaults/main.yml)
+
 
 ### Roles
 
