@@ -10,6 +10,13 @@ go_version_target: "go version go1.6.2 linux/amd64"
 
 
 #########################
+# SSMTP - use Gmail
+#########################
+ssmtp_mailhub: 'smtp.gmail.com:587'
+ssmtp_user: 'info@***REMOVED***'
+ssmtp_pass: '***REMOVED***'
+
+#########################
 # Fail2ban
 #########################
 
