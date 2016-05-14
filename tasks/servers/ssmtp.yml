@@ -8,17 +8,21 @@
     - ../../defaults/main.yml
 
   tasks:
-    - name: Installing SMTP packages (APT)
+    - name: Installing Sendmail package (APT)
       apt: pkg=sendmail state=present
+
+    - name: Installing Mailutils package (APT)
       apt: pkg=mailutils state=present
+      
+    - name: Installing SSMTP package (APT)
       apt: pkg=ssmtp state=present
 
     - name: Configuring SSMTP
       template: src=../../templates/ssmtp-default.j2 dest=/etc/ssmtp/ssmtp.conf
       
-    - name: Replace sendmail
-      shell: sudo killall sendmail executable=/bin/bash 
-      shell: sudo rm -rf /usr/sbin/sendmail
+    - name: Kill all running Sendmail instances
+      shell: sudo killall sendmail executable=/bin/bash  
+      ignore_errors: True
       
     - file: src=/usr/sbin/ssmtp dest=/usr/sbin/sendmail
           owner=root
