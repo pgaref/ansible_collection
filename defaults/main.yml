@@ -13,7 +13,7 @@ go_version_target: "go version go1.6.2 linux/amd64"
 # SSMTP - use Gmail
 #########################
 ssmtp_mailhub: 'smtp.gmail.com:587'
-ssmtp_user: 'info@***REMOVED***'
+ssmtp_user: 'info@example.com'
 ssmtp_pass: '***REMOVED***'
 
 #########################
@@ -27,23 +27,11 @@ fail2ban_pidfile: null
 # Jail configuration - 24 Hours Ban
 fail2ban_bantime: '86400'
 fail2ban_maxretry: '4'
-fail2ban_destemail: 'engineering@***REMOVED***.co'
+fail2ban_destemail: 'engineering@example.com'
 # These Hosts form the so-called circle of trust 
 # TODO: Find a way to use the same hosts as ufw_rules
 fail2ban_whitelisted_hosts: [
         # db{01:08} and math{01:03} respectively
-        109.200.25.210,
-        109.200.5.170,
-        88.150.187.82,
-        149.3.133.186,
-        31.3.234.74,
-        176.227.210.186,
-        31.3.239.146,
-        37.220.6.138,
-        176.227.211.162,
-        81.94.193.210,
-        37.220.20.58,
-        # ***REMOVED*** Office
         89.197.15.215,
         # SpoCoSy1-7
         79.125.109.208,
