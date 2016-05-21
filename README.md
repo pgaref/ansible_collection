@@ -97,13 +97,7 @@ This repository contains a number of **tasks** I found useful when managing a nu
 **Jenkins** works quite well with ansible, so instead of writing some scripts inside jenkins I replaced them with some playbooks which also take care the deployment of the code executables to all the servers.
 Some jenkins-related-playbooks are:
 
-- [Statabet Web Build](./tasks/jenkins-stratabet-web-build.yml)
-- [Onside Analyst Build](./tasks/jenkins-onsideanalyst-build.yml)
-- [Build Tools Repo update](./tasks/servers/build_tools-repo-clone-update.yml)
-- [Build Tools deploy](./tasks/build-tools/jenkins-bt-deploy.yml)
-- [Trading Framework Build](./tasks/trading-framework/jenkins-tf-build.yml)
-- [Trading Framework Deploy](./tasks/trading-framework/jenkins-tf-deploy.yml)
-- [Trading Framework Rollback](./tasks/trading-framework/jenkins-tf-rollback.yml)
+- [Jenkins Web App Build](./tasks/jenkins-web-build.yml)
 - [Spark VirtualEnv Update](./tasks/spark/jenkins-virtualenv-update.yml)
 - [Firewall Extra rules through jenkins](./tasks/jenkins-firewall.yml)
 
