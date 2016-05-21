@@ -45,9 +45,9 @@
          version={{branch_env}}
          accept_hostkey=yes
          key_file=/home/admin/.ansible_playbooks/keys/id_rsa
-  - name: Setup the Stratabet Git repo
-    git: repo=git@bitbucket.org:***REMOVED***/stratabet.git
-         dest=/opt/stratabet
+  - name: Setup the example Git repo
+    git: repo=git@bitbucket.org:***REMOVED***/example.git
+         dest=/opt/example
          force=yes
          clone=yes
          version={{branch_env}}
@@ -151,27 +151,23 @@
      - curl
     
     ## 
-    # Stratabet Web dependencies
+    # Web dependencies
     ##
-    #- name: Executing npm install Bower and Gulp under stratabet
-    #  shell: cd /opt/stratabet/ && npm cache clean -f && npm install -g n && sudo n stable executable=/bin/bash    
-    #- name: Executing npm install Bower and Gulp under stratabet
-    #  shell: cd /opt/stratabet/ && npm install -g bower && npm install -g gulp executable=/bin/bash
-  - name: Executing npm Install under stratabet
-    shell: cd /opt/stratabet/ && export NVM_DIR="/home/admin/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.11 && npm install && bower install --allow-root executable=/bin/bash
-  - command: echo "Going to build statabet in '{{ node_env }}' mode!!!"
-  - name: Build Stratabet in Prod mode
-    shell: cd /opt/stratabet/ && export NVM_DIR="/home/admin/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.11 && gulp build:prod && sed -i.orig 's|http://localhost:5555|https://api.stratabet.com|' public/index.html && sed -i.orig2 's|--applicationMode--|production|' public/index.html && sed -i.orig3 's|pk_test_RG0dNH0QAzOsFnTuRVvVhB9Y|pk_live_n9ZbWR9pWtRfh6b1Xn9iRAk0|' public/index.html executable=/bin/bash  
+  - name: Executing npm Install under
+    shell: cd /opt/example/ && export NVM_DIR="/home/admin/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.11 && npm install && bower install --allow-root executable=/bin/bash
+  - command: echo "Going to build in '{{ node_env }}' mode!!!"
+  - name: Build example in Prod mode
+    shell: cd /opt/example/ && export NVM_DIR="/home/admin/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 5.11 && gulp build:prod && sed -i.orig 's|http://localhost:5555|https://api.example.com|' public/index.html && sed -i.orig2 's|--applicationMode--|production|' public/index.html && sed -i.orig3 's|pk_test_RG0dNH0QAzOsFnTuRVvVhB9Y|pk_live_n9ZbWR9pWtRfh6b1Xn9iRAk0|' public/index.html executable=/bin/bash  
     when: node_env == "production"
-  - name: Build Stratabet in Staging mode
-    shell: cd /opt/stratabet/ && gulp build:prod && sed -i.orig 's|http://localhost:5555|https://api-staging.stratabet.com|' public/index.html 
+  - name: Build example in Staging mode
+    shell: cd /opt/example/ && gulp build:prod && sed -i.orig 's|http://localhost:5555|https://api-staging.example.com|' public/index.html 
     when: node_env == "staging"
     
-  # Manage Supervisor stratabet task - restart them in a specific order
+  # Manage Supervisor example task - restart them in a specific order
   - name: Restart Data API supervisor Job
-    supervisorctl: name="stratabet:data_api" state=restarted
+    supervisorctl: name="example:data_api" state=restarted
   - name: Restart Advantadj API supervisor Job
-    supervisorctl: name="stratabet:advantedj_api" state=restarted
+    supervisorctl: name="example:advantedj_api" state=restarted
     
   handlers:
    - name: test all
