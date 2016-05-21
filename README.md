@@ -53,7 +53,7 @@ This repository contains a number of **tasks** I found useful when managing a nu
   * **Configuration:** If you need to add a user just add his pub key under /files/keys and then update the [ssh_users.yml](./vars/ssh_users.yml) file. To remove a user just turn the acces flag to false and rerun the playbook
 2. [Golang Install/Upgrade](./tasks/servers/golang_update.yml)
   * **Command:** ``ansible-playbook tasks/servers/golang_update.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
-  * **Configuration:** If you need to change GO version just change the go_version, go_tarball and go_tarball_checksum variables at [main.yml](./defaults/main.yml)
+  * **Configuration:** If you need to change GO version just change the go_version, go_tarball and go_tarball_checksum variables at [main.yml](./defaults/main.yml) according to the new version details as found at [http://golang.org/dl/](http://golang.org/dl/)
 3. [Java 8 Setup](./tasks/servers/java8_default.yml)
   * **Command:** ``ansible-playbook tasks/servers/java8_default.yml --vault-password-file=/opt/ansible_playbooks/vault.txt -k --sudo``
 4. [UTC Timezone](./tasks/servers/timezone_UTC.yml)
