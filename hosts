@@ -9,18 +9,18 @@
 #   - A hostname/ip can be a member of multiple groups
 
 
-#***REMOVED*** collection of database servers
+#Example collection of database servers
 
 [dbservers]
-db[01:08].***REMOVED***.co
+db[01:08].example.com
 
 
 #My local address -- db07 -- for testing purposes only
 
 [local]
-db07.***REMOVED***.co
+db07.example.com
 
 [test]
-db01. example.comansible_host=109.200.25.210 ansible_user=root
-db02. example.comansible_host=109.200.5.170 ansible_user=root
-db03. example.comansible_host=88.150.187.82 ansible_user=root
+db01.example.com ansible_host=109.200.25.210 ansible_user=root
+db02.example.com ansible_host=109.200.5.170 ansible_user=root
+db03.example.com ansible_host=88.150.187.82 ansible_user=root
