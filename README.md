@@ -102,6 +102,17 @@ Some jenkins-related-playbooks are:
 - [Firewall Extra rules through jenkins](./tasks/jenkins-firewall.yml)
 
 
+# Getting Started
+
+1. Make sure you have a user called ansible with root priviledges in all the managed hosts (also disable asking sudo pass for this specific user) 
+2. Some playbooks are expecting the ansible_collection (also named ansible_playbooks) folder to be located under /opt - change them to fit your needs
+3. Lets create a new user called spark using an ansible playbook
+  * Update hosts file with your nodes
+  * Update tasks/users/new_user.yml with your PATH
+  * Store new user public key under /files/user_keys/spark
+  * Run **ansible-playbook tasks/users/new_user.yml  -k -sudo -i hosts**
+4. Have fun!
+
 # Extras
 
 ## 1. Inventory

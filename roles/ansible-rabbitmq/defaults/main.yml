@@ -33,7 +33,7 @@ rabbitmq_users:
     tags: administrator
 
   - user: pythondev
-    password: pythondev777
+    password: ***REMOVED***
     vhost: dev
     configure_priv: .*
     read_priv: .*
@@ -41,7 +41,7 @@ rabbitmq_users:
     tags: administrator
 
   - user: pythondev
-    password: pythondev777
+    password: ***REMOVED***
     vhost: prod
     configure_priv: .*
     read_priv: .*
@@ -49,7 +49,7 @@ rabbitmq_users:
     tags: administrator
 
   - user: golangdev
-    password: golangdev888
+    password: ***REMOVED***
     vhost: dev
     configure_priv: .*
     read_priv: .*
@@ -57,7 +57,7 @@ rabbitmq_users:
     tags: administrator
 
   - user: golangdev
-    password: golangdev888
+    password: ***REMOVED***
     vhost: prod
     configure_priv: .*
     read_priv: .*

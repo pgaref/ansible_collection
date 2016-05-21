@@ -4,7 +4,6 @@
   sudo: yes
   sudo_user: root
   vars_files:
-    - ../../vars/secret
     - ../../vars/ssh_users.yml
 
   tasks:
