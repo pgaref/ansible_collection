@@ -1,0 +1,18 @@
+---
+- apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' state=present
+  environment: "{{ proxy_env }}"
+- apt_repository: repo='deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' state=present
+  environment: "{{ proxy_env }}"
+
+- debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select' unseen=false
+
+- name: Copy PGP key for Oracle into place
+  template: src=oracle-pgp-key dest=/home/{{ hadoop_user }}/.ssh/oracle-pgp-key owner={{ hadoop_user }} mode=0600
+
+- apt_key: file=/home/{{ hadoop_user }}/.ssh/oracle-pgp-key
+
+- name: Install Java
+  apt: pkg=oracle-java8-installer state=installed update_cache=true
+  environment: "{{ proxy_env }}"
+
+- lineinfile: dest=/home/hadoop/.bashrc regexp="^export JAVA_HOME" line="export JAVA_HOME=/usr/lib/jvm/java-8-oracle"

@@ -89,7 +89,16 @@ This repository contains a number of **tasks** I found useful when managing a nu
   * **Info:** Mesos cluster - machine roles are defined under [inventory](./roles/ansible-mesos/inventory/inventory.yml). Role configuration under [main.yml](./roles/ansible-mesos/defaults/main.yml)
 - [RabbitMQ](./roles/ansible-rabbitmq/rabbitMQ-install.yml)
   * **Command:** ``ansible-playbook roles/ansible-rabbitmq/rabbitMQ-install.yml -i roles/ansible-rabbitmq/inventory/ --vault-password-file=/opt/ansible_playbooks/vault.txt --sudo``
-  * **Info:** Installs Rabbit either cluster or standalone mode. Playbook supports clustering and custom partioning errors handling (auto_heal mode and HA) using jinja templates here again. Configure rabbit at [main.yml](./roles/ansible-rabbitmq/defaults/main.yml). Configure the deployment hosts at [inventory](./roles/ansible-rabbitmq/inventory/inventory.yml) 
+  * **Info:** Installs Rabbit either cluster or standalone mode. Playbook supports clustering and custom partioning errors handling (auto_heal mode and HA) using jinja templates here again. Configure rabbit at [main.yml](./roles/ansible-rabbitmq/defaults/main.yml). Configure the deployment hosts at [inventory](./roles/ansible-rabbitmq/inventory/inventory.yml)
+- [Hadoop Cluster](./roles/hadoop-common/tasks/main.yml)
+  * **Command:** ``ansible-playbook -i hosts hadoop-playbook.yml -vv``
+  * **Info:** Installs a Hadoop cluster consisting of HDFS, Yarn etc. Configure [hosts](./hosts) and host roles at [hosts-hadoop](./hosts-hadoop). Finally log into master and run:
+  * ``sudo su - hadoop``
+  * ``$HADOOP_HOME/bin/hdfs namenode -format``
+  * ``$HADOOP_HOME/sbin/start-dfs.sh``
+  * ``$HADOOP_HOME/sbin/start-yarn.sh``
+  * ``$HADOOP_HOME/sbin/slaves.sh jps``
+  * ``$HADOOP_HOME/bin/hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar pi 10 30``
 
 
 ### Jenkins Tasks

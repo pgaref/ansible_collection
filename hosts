@@ -11,6 +11,12 @@
 
 #Example collection of database servers
 
+[hadoop-master]
+wombat11
+
+[hadoop-slaves]
+wombat[12:14]
+
 [dbservers]
 db[01:08].example.com
 
@@ -24,3 +30,12 @@ db07.example.com
 db01.example.com ansible_host=109.200.25.210 ansible_user=root
 db02.example.com ansible_host=109.200.5.170 ansible_user=root
 db03.example.com ansible_host=88.150.187.82 ansible_user=root
+
+
+[hadoop-master:vars]
+nodesfile=hosts-hadoop
+
+[hadoop-slaves:vars]
+nodesfile=hosts-hadoop
+
+

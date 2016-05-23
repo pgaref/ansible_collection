@@ -1,0 +1,49 @@
+---
+- include_vars: "{{ nodesfile }}"
+
+- group: name={{ hadoop_group}} state=present
+- user: name={{ hadoop_user }} comment="Hadoop" group={{ hadoop_group}} shell=/bin/bash
+
+- authorized_key: user={{ hadoop_user }} key="{{ lookup('file', '../templates/hadoop_rsa.pub') }}"
+
+# this is a bandwidth heavy task which downloads hadoop binaries to each node
+- name: Download hadoop
+  get_url: url={{ hadoop_download_url }} dest=/home/{{ hadoop_user }}/hadoop-2.7.2.tar.gz
+  environment: "{{ proxy_env }}"
+
+- name: Extract hadoop archive
+  unarchive: src=/home/{{ hadoop_user }}/hadoop-2.7.2.tar.gz dest=/usr/local owner={{ hadoop_user}} group={{ hadoop_group }} creates=/usr/local/hadoop copy=no
+  
+# this is an alternative for the local deployment where the hadoop binary can be cached locally
+#- name: unpack hadoop
+#  unarchive: src=/home/vagrant/src/roles/common/templates/hadoop-2.7.2.tar.gz dest=/usr/local owner={{ hadoop_user}} group={{ hadoop_group }} creates=/usr/local/hadoop
+
+- command: mv /usr/local/hadoop-2.7.2 /usr/local/hadoop creates=/usr/local/hadoop removes=/usr/local/hadoop-2.7.2
+
+- lineinfile: dest=/home/hadoop/.bashrc regexp="HADOOP_HOME=" line="export HADOOP_HOME=/usr/local/hadoop"
+- lineinfile: dest=/home/hadoop/.bashrc regexp="PATH=" line="export PATH=$PATH:$HADOOP_HOME/bin"
+- lineinfile: dest=/home/hadoop/.bashrc regexp="HADOOP_SSH_OPTS=" line="export HADOOP_SSH_OPTS=\"-i /home/{{ hadoop_user }}/.ssh/hadoop_rsa\""
+
+# Idempotent way to build a /etc/hosts file with Ansible using your Ansible hosts inventory for a source.
+# Will include all hosts the playbook is run on.
+# Inspired from http://xmeblog.blogspot.com/2013/06/ansible-dynamicaly-update-etchosts.html
+
+- name: "Build hosts file"
+  lineinfile: dest=/etc/hosts regexp='{{ item.ip }}' line="{{ item.ip }} {{ item.hostname }}" state=present
+  with_items: "{{ nodes }}"
+
+- lineinfile: dest=/etc/hosts regexp='127.0.1.1' state=absent
+
+- file: path=/home/{{ hadoop_user }}/tmp state=directory owner={{ hadoop_user}} group={{ hadoop_group }} mode=750
+- file: path=/home/{{ hadoop_user }}/hadoop-data/hdfs/namenode state=directory owner={{ hadoop_user}} group={{ hadoop_group }} mode=750
+- file: path=/home/{{ hadoop_user }}/hadoop-data/hdfs/datanode state=directory owner={{ hadoop_user}} group={{ hadoop_group }} mode=750
+
+- name: Add the service scripts
+  template: src={{ item.src }} dest={{ item.dest }} owner={{ hadoop_user}} group={{ hadoop_group }}
+  with_items:
+    - {src: "core-site.xml", dest: "/usr/local/hadoop/etc/hadoop/core-site.xml"}
+    - {src: "hdfs-site.xml", dest: "/usr/local/hadoop/etc/hadoop/hdfs-site.xml"}
+    - {src: "yarn-site.xml", dest: "/usr/local/hadoop/etc/hadoop/yarn-site.xml"}
+    - {src: "mapred-site.xml", dest: "/usr/local/hadoop/etc/hadoop/mapred-site.xml"}
+
+- lineinfile: dest=/usr/local/hadoop/etc/hadoop/hadoop-env.sh regexp="^export JAVA_HOME" line="export JAVA_HOME=/usr/lib/jvm/java-8-oracle"

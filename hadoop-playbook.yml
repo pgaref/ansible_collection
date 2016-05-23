@@ -1,0 +1,25 @@
+---
+- name: Installing hadoop master node
+  hosts: hadoop-master
+  remote_user: ansible
+  # Sudo by default
+  become: yes
+  vars_files:
+    - defaults/main.yml
+
+  roles:
+    - hadoop-common
+    - oracle-java8
+    - hadoop-master
+
+
+- name: Installing hadoop data nodes
+  hosts: hadoop-slaves
+  remote_user: ansible
+  become: yes
+  vars_files:
+    - defaults/main.yml
+
+  roles:
+    - hadoop-common
+    - oracle-java8

@@ -1,0 +1,4 @@
+---
+hadoop_user: hadoop
+hadoop_group: hadoop
+hadoop_download_url: http://www-us.apache.org/dist/hadoop/common/stable/hadoop-2.7.2.tar.gz
